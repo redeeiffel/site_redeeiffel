@@ -1,0 +1,123 @@
+{
+    "HOME": {
+      "TITLE": "Inovação em Cada Etapa",
+      "SELECT": "Esta é a selecção"
+    },
+    "MENU": {
+      "index": "Início",
+      "about-us": "Quem somos",
+      "offer": "Oferta",
+      "industry": "Indústrias",
+      "career": "Carreiras",
+      "contact-us": "Fale connosco"
+    },
+    "ABOUT":{
+      "title-section-1": "Quem somos",
+        "paragraph-1": "A ESPAES - Empresa de Serviços Partilhados e Especializados em Consultoria, fundada em 2022, está sedeada em Luanda, Angola.",
+        "paragraph-2": "A sua forma de trabalho reflecte a ambição de negócio, de trabalhar próximo aos seus Clientes para apoiar as organizações a crescerem, a ganharem vantagem competitiva e trazerem mudanças positivas no mercado em que actuam.",
+        "paragraph-3": "O foco na inovação permite-nos apresentar soluções disruptivas para utilização de Clientes Corporativos e em beneficio do utilizador final.",
+        "paragraph-4": "A Espaes é uma empresa pioneira no mercado angolano de serviços partilhados e especializados em Consultoria.",
+
+        "title-section-2": "CONHEÇA A ESPAES",
+        "mision-title": "Missão",
+        "vision-title": "Visão",
+        "values-title": "Valores",
+
+        "mision-text": "Actuar de forma responsável, através de um serviço metódico, de excelência e de capacidade de resposta imediata, por intermédio de uma equipa competente e diferenciada.",
+        "vision-text": "Tornar-se na referência incontornável no mercado nacional, na prestação de serviços partilhados especializados que resultem na satisfação dos Clientes a 360º.",
+
+        "values-text-1": "Ética: A base de todo o nosso trabalho e o diferencial na vida das equipas. A Alma da Empresa.",
+        "values-text-2": "Competência: A nossa capacidade de utilizar os conhecimentos, as habilidades e a história de cada um para o todo e para os nossos Clientes.",
+        "values-text-3": "Inovação: A nossa capacidade de aprender e reaprender para superar.",
+        "values-text-4": "Business Attitude: Uma atitude pessoal, demonstrada de forma profissional que força-nos a não deixar nenhuma peça solta no processo de encontrar soluções para resolver os desafios dos nossos Clientes."
+
+    }
+    ,
+    "OFFER":{
+      "title-section-1": "A NOSSA OFERTA",
+        "paragraph-1": "O conceito de serviços partilhados chega a Angola, por via das ESPAES. Hoje, empresas privadas angolanas bem sucedidas, utilizam a oferta de serviços das ESPAES, gerando valor no seu dia a dia empresarial, redução de custos e especialização do seu capital humano nas tarefas principais dos seus negócios. Fale connosco.",
+
+        "title-section-2": "SERVIÇOS ESPECIALIZADOS",
+
+        "ti-title": "TECNOLOGIAS DE INFORMAÇÃO",
+        "ti-area-1": "Transformação Digital",
+        "ti-area-2": "Fornecimento de Softwares",
+        "ti-area-3": "Integração de Sistemas",
+        "ti-area-4": "Serviços de Núvem",
+        "ti-area-5": "Soluções Bancárias e de Seguros",
+        "ti-area-6": "Optimização de Canais de Venda",
+
+        "legal-Services-title": "SERVIÇOS JURÍDICOS",
+        "legal-Services-area-1": "Gestão de Contratos",
+        "legal-Services-area-2": "Contencioso",
+        "legal-Services-area-3": "Relação Jurídica Interna e Externa",
+
+        "electronic-banking-title": "BANCA ELECTRÓNICA",
+        "electronic-banking-area-1": "Soluções de Meios de Pagamento",
+        "electronic-banking-area-2": "Gestão de Call-Center",
+
+        "heritage-security-title": "PATRIMÓNIO E SEGURANÇA",
+        "heritage-security-area-1": "Procurement Imobiliário ",
+        "heritage-security-area-2": "Deco Base  ",
+        "heritage-security-area-3": "Maquetes 3D espaços Comerciais/Indústriais ",
+        "heritage-security-area-4": "Consultoria Pré e Pós Obra Arquitectónica",
+
+        "marketing-title": "MARKETING ",
+        "marketing-area-1": "Agenda de Marketing para Novos Negócios",
+        "marketing-area-2": "Estudos de Mercado",
+        "marketing-area-3": "Marketing Funcional",
+        "marketing-area-4": "Marketing Estratégico",
+
+        "human-capital-title": "Capital Humano",
+        "human-capital-area-1": "Selecção e Recrutamento",
+        "human-capital-area-2": "Gestão de Formação",
+
+        "communication-media-title": "Comunicação e Imagem",
+        "communication-media-area-1": "Consultoria de Media",
+        "communication-media-area-2": "Comunicação Interna/Externa",
+        "communication-media-area-3": "Gestão de Informação",
+
+        "title-section-3": "O NOSSO COMPROMISSO",
+        "list-item-1": "Práticas de Negócio Responsáveis ",
+        "list-item-2": "Transparência e Reputação Institucional ",
+        "list-item-3": "Liderança e Mentoria através de Colaboradores Especializados",
+        "list-item-4": "Inovação em cada etapa ",
+        "list-item-5": "Tornar desafios em realidade, hoje e sempre"
+    },
+    "INDUSTRY": {
+      "title-section-1": "INDÚSTRIAS",
+      "paragraph-1": "A velocidade cruzeiro da Economia global e dos mercados nacionais e internacionais, exigem respostas rápidas de adaptação do negócio para conquista de resultados acima do break-even.",
+      "paragraph-2": "Com o serviço especializado da ESPAES, as empresas podem agora focar-se na gestão directa das suas tarefas chave para maximizarem proveitos e terceirizarem connosco as áreas não core ou projectos complexos.",
+      "paragraph-3": "Conheça as Indústrias com as quais trabalhamos",
+
+        "list-item-1": "COMÉRCIO E INDÚSTRIA",
+        "list-item-2": "BANCA ",
+        "list-item-3": "SEGUROS",
+        "list-item-4": "DIGITAL SOFTWARES",
+        "list-item-5": "Comunicação e Media",
+        "list-item-6": "Institucional (sector público)",
+        "list-item-7": "AGRONEGÓCIOS",
+        "list-item-8": "TRANSPORTES"
+    },
+    "CAREER": {
+      "title-section-1": "Carreiras",
+      "title-section-2": "SUSTENTABILIDADE, DIVERSIDADE E INCLUSÃO ",
+      "paragraph-1": "A ESPAES é uma empresa responsável, que actua preocupada com a sustentabilidade do planeta e repassa esta preocupação aos seus Colaboradores, Clientes e aos Fornecedores.",
+      "paragraph-2": "Em beneficio da saúde mental e fomento da cultura corporativa ESPAES, todos são tratados com respeito e profissionalismo independentemente das suas escolhas religiosas, etnia, cultura, background académico ou outros factores pessoais.",
+      "paragraph-3": "A inclusão de medidas tais como igualdade na balança do género por parte dos Recursos Humanos, mostra a determinação da gestão do topo em tornar a empresa igual para todos e valorizar apenas as competências profissionais de cada um.",
+      "paragraph-4": "Junte - se a nós! Envie os dados de candidatura para",
+      "paragraph-5": ""
+    },
+    "CONTACT-US": {
+      "title-section-1": "Fale connosco ",
+      "title-section-2": "Informações de contacto ",
+      "paragraph-1": "Deixe a sua mensagem",
+      "form-label-name": "Nome completo",
+      "form-label-phone": "Número de telefone",
+      "form-label-email": "Email",
+      "form-label-subject": "Assunto",
+      "form-label-message": "Escreva a sua mensagem",
+      "paragraph-form-1": "Deseja enviar algum ficheiro de anexo? (opcional)",
+      "form-button-send-text": "Enviar mensagem"
+    }
+  }

@@ -1,0 +1,125 @@
+{
+  "HOME": {
+    "TITLE": "Innovation at Every Step",
+    "SELECT": "Choose Language"
+  },
+  "MENU":{
+    "index": "Home",
+      "about-us": "who we are",
+      "offer": "Offer",
+      "industry": "Industry",
+      "career": "Career",
+      "contact-us": "Contact-us"
+  },
+  "ABOUT":{
+    "title-section-1": "ABOUT ESPAES",
+      "paragraph-1": "ESPAES - Is a Consultancy company of Specialized and Shared services, founded in 2022 and based in Luanda, Angola.",
+      "paragraph-2": "Our way of working reflects the business ambition of working closely with our clients to support Organizations to grow, gain competitive advantage and bring positive changes in the market they operate in.",
+      "paragraph-3": "The focus on innovation allows us to present disruptive solutions for the use of Corporate Customers and for the benefit of the end user. ",
+      "paragraph-4": "Espaes is a pioneer company in the Angolan market of shared services and specialized in Consulting.",
+
+      "title-section-2": "GET TO KNOW ESPAES",
+        "mision-title": "Mision",
+        "vision-title": "Vison",
+        "values-title": "Values",
+
+        "mision-text": "Act responsibly, through a methodical service, excellence and immediate response capacity, through a competent and differentiated team. ",
+        "vision-text": "Become the unavoidable reference in the national market, in the provision of specialized shared services that result in customer satisfaction at 360º.. ",
+
+        "values-text-1": "Ethics: The underlying base of all our work and the differential in the day to day of our departments! The Soul of the Company. ",
+        "values-text-2": "Competence: Our ability to use the knowledge, skillset and past experiences of our team members for the benefit of our Customers. ",
+        "values-text-3": "Innovation: Our ability to learn and relearn in order to overcome and surpass expectations.",
+        "values-text-4": "Business Attitude: Our mentality, which forces us to leave no stone unturned in the process of finding a solution, in order to help solve our clients problems, in the most professional way. "
+  }
+  ,
+  "OFFER":{
+    "title-section-1": "OUR OFFER",
+      "paragraph-1": "The concept of shared services arrives in Angola, through ESPAES. Today, a handful of Angolan privately held companies use ESPAES services, generating value in their day-to-day business, cost reduction and specialization of their human capital in the main tasks of their business.Talk to us. ",
+
+      "title-section-2": "SERVICES - SPECIALIZATION AREAS",
+
+      "ti-title": "TI",
+      "ti-area-1": "Digital Transformation",
+      "ti-area-2": "Software Supply",
+      "ti-area-3": "Systems integration",
+      "ti-area-4": "Cloud Services",
+      "ti-area-5": "Banking and Insurance Solutions",
+      "ti-area-6": "Optimisation of sales channels",
+
+      "legal-Services-title": "Legal Services",
+      "legal-Services-area-1": "Contract Management ",
+      "legal-Services-area-2": "Litigation ",
+      "legal-Services-area-3": "Internal and External Legal Relationship",
+
+      "electronic-banking-title": "Electronic Banking",
+      "electronic-banking-area-1": "Payment Methods Solutions",
+      "electronic-banking-area-2": "Call-Center Management",
+
+      "heritage-security-title": "Heritage and Security ",
+      "heritage-security-area-1": "Real estate procurement ",
+      "heritage-security-area-2": "Deco Base  ",
+      "heritage-security-area-3": "Models 3D commercial/ Industrial spaces ",
+      "heritage-security-area-4": "Pre and Post Architectural-Work Consultancy",
+
+      "marketing-title": "MARKETING ",
+      "marketing-area-1": "Agenda for New Business  ",
+      "marketing-area-2": "Market Research   ",
+      "marketing-area-3": "Functional Marketing ",
+      "marketing-area-4": "Strategic Marketing  ",
+
+      "human-capital-title": "Human Capital",
+      "human-capital-area-1": "Selection and Recruitment",
+      "human-capital-area-2": "Training Management",
+
+      "communication-media-title": "Communication and Image",
+      "communication-media-area-1": "Media consulting",
+      "communication-media-area-2": "Internal/external",
+      "communication-media-area-3": "Information management",
+
+
+      "title-section-3": "OUR COMMITMENT",
+      "list-item-1": "Responsible Business Practices ",
+      "list-item-2": "Transparency and Institutional Reputation ",
+      "list-item-3": "Leadership and Mentoring through Specialized Employees",
+      "list-item-4": "Innovation at every step ",
+      "list-item-5": "Making challenges come true today and always"
+
+
+  },
+  "INDUSTRY": {
+    "title-section-1": "INDUSTRIES",
+    "paragraph-1": "The cruising speed of the global economy and national and international markets, require quick responses of business adaptation to achieve results above break-even.",
+    "paragraph-2": "With ESPAES's expertise, companies can now focus on direct management of their key tasks to maximise profits and outsource with us non-core areas or complex projects. ",
+    "paragraph-3": "Get to know the industries we work with",
+
+      "list-item-1": "Trade",
+      "list-item-2": "Banking ",
+      "list-item-3": "Insurance",
+      "list-item-4": "Digital Softwares ",
+      "list-item-5": "Media and Communications",
+      "list-item-6": "Institutional (public sector)",
+      "list-item-7": "AGRIBUSINESS",
+      "list-item-8": "TRANSPORTS"
+  },
+  "CAREER": {
+    "title-section-1": "CAREER",
+    "title-section-2": "Sustainability, Diversity and Inclusion ",
+    "paragraph-1": "ESPAES is a responsible company, that cares about the planets sustainability, and we make sure to pass these values onto our collaborators, clients and suppliers",
+    "paragraph-2": "For the benefit of mental health and the promotion of ESPAES corporate culture, everyone is treated with respect and professionalism regardless of their religious choices, ethnicity, culture, academic background or other personal factors.",
+    "paragraph-3": "The inclusion of measures such as gender equality by Human Resources shows managements determination to make the company equal for all, and value only the professional skills of each ",
+    "paragraph-4": "Join us! Send application data to ",
+    "paragraph-5": ""
+  },
+  "CONTACT-US": {
+    "title-section-1": "CONTACT-US",
+    "title-section-2": "Contact information ",
+    "paragraph-1": "Leave your message",
+    "form-label-name": "Enter your name",
+    "form-label-phone": "Enter your phone number",
+    "form-label-email": "Enter your email",
+    "form-label-subject": "Enter your name",
+    "form-label-message": "Text your message",
+    "paragraph-form-1": "Do you want to send an attachment file? (optional)",
+    "form-button-send-text": "Send message"
+  }
+}

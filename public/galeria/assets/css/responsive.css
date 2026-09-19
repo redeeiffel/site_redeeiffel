@@ -1,0 +1,104 @@
+/*Mobile*/
+
+@media only screen and (max-width: 576px) {
+   
+    #header .logo{
+        margin-right: 50px;
+    }
+    #header .eiffel{
+        font-family: Algerian;
+        font-weight: bold;
+        font-size:40px;
+        color:red;
+      margin-left: -50px;
+    }
+    #header .rede{
+        font-family: Algerian;
+       
+        font-weight: bold;
+        font-size:40px;
+        color:red;
+    }
+
+
+    #features #apresentacao .tab-pane #unica img{
+     width: 300px;
+     
+    }
+
+   
+ }
+
+ @media only screen and (min-width: 900px) and (max-width: 1200px) {
+  #features #classes .tab-pane img{
+   margin-left: 50px;
+   }
+
+   #features #educacao .tab-pane img{
+    margin-left: 50px;
+    }
+
+    #features #orientacao .tab-pane img{
+      margin-left: 50px;
+      }
+    #features #apresentacao .tab-pane #unica img{
+       margin-left: 0px;
+        }
+        #features #apresentacao .tab-pane img{
+          margin-left: 50px;
+     }
+ 
+
+}
+
+
+@media only screen and (min-width: 1200px) and (max-width: 2000px) {
+  #features #classes .tab-pane img{
+    margin-left: 150px;
+   }
+
+   #features #educacao .tab-pane img{
+    margin-left: 150px;
+    }
+
+    #features #orientacao .tab-pane img{
+      margin-left: 150px;
+      }
+    #features #apresentacao .tab-pane #unica img{
+       margin-left: 0px;
+        }
+        #features #apresentacao .tab-pane img{
+          margin-left: 100px;
+           }
+           #features #parceiros .tab-pane img{
+            margin-left: 150px;
+             }
+    #features #liceus .tab-pane #unica img{
+          margin-left: 100px;
+           }
+     #features #liceus .tab-pane img{
+            margin-left: 100px;
+             }
+    #liceus #liceus .tab-pane img{
+          margin-left: 100px;
+        }
+    #liceus #liceus .tab-pane #unica img{
+          margin-left: 00px;
+        }
+   #liceus #liceus .tab-pane #unica img{
+          margin-left: 00px;
+        }
+   #faq #acerca  img{
+          margin-left: 100px;
+        }
+   #faq #acerca  #unica img{
+          margin-left: 0px;
+        }
+        #features #educativo .tab-pane img{
+          margin-left: 100px;
+        }
+
+      }
+     
+
+ 

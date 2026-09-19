@@ -1,0 +1,17 @@
+.new-card-admin{
+    background: #FFFFFF;
+    border: 1px solid #DEDEDE;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.new-card-header-light{
+    padding: 5px 10px 10px 10px;
+    color: #444444;
+    background: #F0F0F0;
+}
+
+
+.new-card-content {
+    padding: 10px;
+}
