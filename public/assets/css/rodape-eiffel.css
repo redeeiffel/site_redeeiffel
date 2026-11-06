@@ -1,0 +1,153 @@
+/* Rede Eiffel — rodapé público renovado | azul, branco e dourado discreto */
+body.eiffel-public .footer-eiffel,
+.footer-eiffel {
+    --footer-azul: #123f8c;
+    --footer-escuro: #092858;
+    --footer-claro: #b9d9ff;
+    --footer-dourado: #f5c542;
+    background: #092858 !important;
+    color: #f2f7ff;
+    padding-top: 0;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+.footer-eiffel *, .footer-eiffel *::before, .footer-eiffel *::after {box-sizing: border-box}
+.footer-eiffel-newsletter {
+    background: radial-gradient(ellipse at 96% 0%,rgba(40,111,202,.13),transparent 48%),linear-gradient(135deg,#fff,#f0f6ff);
+    color: #233653;
+    padding: 64px 0;
+    position: relative;
+}
+.footer-eiffel-newsletter::before {
+    content: ""; position: absolute; width: 240px; height: 240px; border: 1px solid rgba(18,63,140,.09);
+    border-radius: 50%; top: -145px; right: -65px; pointer-events: none;
+}
+.footer-eiffel-newsletter-grid {display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,1fr); align-items: center; gap: 55px}
+.footer-eiffel-apresentacao {display: flex; align-items: flex-start; gap: 24px}
+.footer-eiffel-marca {flex: 0 0 auto; display: inline-flex; background: #fff; padding: 9px; border-radius: 17px; box-shadow: 0 9px 30px rgba(14,51,102,.12)}
+.footer-eiffel-logo {width: 100px; max-width: 100%; height: auto; display: block; object-fit: contain; border-radius: 8px}
+.footer-eiffel-etiqueta {display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #2465b7; margin-bottom: 10px}
+.footer-eiffel-apresentacao h2 {font-size: clamp(24px,2.6vw,34px); line-height: 1.2; margin: 0 0 13px; font-weight: 800; color: #092858}
+.footer-eiffel-apresentacao p {font-size: 14px; line-height: 1.85; color: #52647d; margin: 0; text-align: left}
+.footer-eiffel-subscricao {background: #fff; border: 1px solid rgba(18,63,140,.09); border-radius: 22px; box-shadow: 0 16px 45px rgba(18,63,140,.09); padding: 29px}
+.footer-eiffel-subscricao-icone {display: inline-flex; width: 43px; height: 43px; align-items: center; justify-content: center; border-radius: 13px; background: #eaf2ff; color: #123f8c; font-size: 20px; margin-bottom: 12px}
+.footer-eiffel-subscricao h3 {font-size: 20px; color: #092858; font-weight: 800; margin: 0 0 9px}
+.footer-eiffel-subscricao p {font-size: 13px; line-height: 1.7; color: #61728a; margin: 0 0 18px; text-align: left}
+.footer-eiffel-label {display: block; font-size: 12px; font-weight: 700; color: #233653; margin-bottom: 7px}
+.footer-eiffel-form-campos {display: flex; gap: 9px; align-items: stretch}
+.footer-eiffel-form input[type="email"].browser-default {min-width: 0; flex: 1 1 auto; width: 100%; height: 46px; margin: 0; padding: 0 13px; background: #fff; color: #092858; border: 1px solid #cdd9e9; border-radius: 10px; font: inherit; font-size: 13px; box-shadow: none}
+.footer-eiffel-form input[type="email"].browser-default:focus {border-color: #2465b7; outline: 3px solid rgba(36,101,183,.15)}
+.footer-eiffel-submit {flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 10px; padding: 0 16px; min-height: 46px; background: #123f8c; color: #fff; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer; transition: background .2s ease, transform .2s ease}
+.footer-eiffel-submit:hover {background: #0b326d; transform: translateY(-2px)}
+.footer-eiffel-principal {position: relative; padding: 65px 0 42px; background: radial-gradient(circle at 88% 20%,rgba(48,122,214,.22),transparent 28%),radial-gradient(circle at 3% 95%,rgba(48,122,214,.13),transparent 34%),linear-gradient(120deg,#0a2c61,#092858 65%,#0c3674)}
+.footer-eiffel-principal::before {content: ""; position: absolute; width: 340px; height: 340px; right: -170px; top: -170px; border: 1px solid rgba(255,255,255,.09); border-radius: 50%; pointer-events: none}
+.footer-eiffel-colunas {margin-bottom: 0}
+.footer-eiffel-colunas .col {margin-bottom: 24px}
+.footer-eiffel-colunas h3 {position: relative; font-size: 17px; line-height: 1.4; font-weight: 800; color: #fff; margin: 0 0 25px; padding-bottom: 13px}
+.footer-eiffel-colunas h3::after {content: ""; position: absolute; bottom: 0; left: 0; width: 35px; height: 3px; border-radius: 4px; background: linear-gradient(90deg,#f5c542,#a8d5ff)}
+.footer-eiffel-colunas ul {margin: 0; padding: 0; list-style: none}
+.footer-eiffel-colunas li {margin: 0 0 11px; line-height: 1.6}
+.footer-eiffel-colunas a {position: relative; display: inline-block; color: #e1ecfc !important; font-size: 14px; text-decoration: none; transition: color .2s ease}
+.footer-eiffel-colunas li a::after {content: ""; position: absolute; bottom: -3px; left: 0; width: 100%; height: 2px; background: #a8d5ff; transform: scaleX(0); transform-origin: left; transition: transform .22s ease}
+.footer-eiffel-colunas li a:hover::after, .footer-eiffel-colunas li a:focus-visible::after {transform: scaleX(1)}
+.footer-eiffel-colunas a:hover, .footer-eiffel-colunas a:focus-visible {color: #fff !important}
+.footer-eiffel-contactos {font-style: normal}
+.footer-eiffel-contactos p {display: flex; align-items: flex-start; gap: 11px; color: #e1ecfc; font-size: 13px; line-height: 1.8; margin: 0 0 12px; text-align: left; overflow-wrap: anywhere}
+.footer-eiffel-contactos i {color: #b9d9ff; margin-top: 5px; min-width: 16px; text-align: center}
+.footer-eiffel-contactos a {font-size: 13px}
+.footer-eiffel-redes-texto {color: #e1ecfc; font-size: 14px; line-height: 1.7; margin: 0 0 18px; text-align: left}
+.footer-eiffel-redes {display: flex; flex-wrap: wrap; gap: 12px}
+.footer-eiffel-redes a {display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 13px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.09); color: #fff !important; font-size: 18px; transition: background .2s ease, transform .2s ease, border-color .2s ease}
+.footer-eiffel-redes a:hover {background: rgba(168,213,255,.2); border-color: #a8d5ff; transform: translateY(-3px)}
+.footer-eiffel a:focus-visible, .footer-eiffel button:focus-visible {outline: 3px solid #a8d5ff; outline-offset: 4px}
+.footer-eiffel-copyright {margin-top: 0; padding: 18px 0; background: #061d43; border-top: 1px solid rgba(255,255,255,.12); color: #cbdcf2; font-size: 12px; line-height: 1.7}
+.footer-eiffel-copyright-conteudo {display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px}
+@media(max-width:992px) {.footer-eiffel-newsletter-grid {grid-template-columns: 1fr; gap: 30px}.footer-eiffel-newsletter {padding: 45px 0}}
+@media(max-width:600px) {.footer-eiffel-newsletter {padding: 38px 0}.footer-eiffel-apresentacao {flex-direction: column; align-items: center; text-align: center; gap: 18px}.footer-eiffel-apresentacao p {text-align: left}.footer-eiffel-apresentacao h2 {text-align: center}.footer-eiffel-etiqueta {text-align: center}.footer-eiffel-subscricao {padding: 22px 17px}.footer-eiffel-form-campos {flex-direction: column}.footer-eiffel-submit {width: 100%}.footer-eiffel-principal {padding: 45px 0 20px}.footer-eiffel-colunas .col {margin-bottom: 28px}.footer-eiffel-copyright-conteudo {justify-content: center; text-align: center}}
+@media(prefers-reduced-motion:reduce) {.footer-eiffel *, .footer-eiffel *::before, .footer-eiffel *::after {transition: none !important}}
+
+
+/* ============================================================
+   Rede Eiffel | Rodapé claro v3
+   Substitui a paleta escura anterior sem alterar o componente.
+   ============================================================ */
+body.eiffel-public .footer-eiffel,
+.footer-eiffel {
+    background: #f3f6fa !important;
+    color: #233653;
+}
+
+.footer-eiffel-newsletter {
+    background:
+        radial-gradient(circle at 92% 8%, rgba(100, 171, 238, .17), transparent 33%),
+        linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #e9f3ff 100%);
+}
+
+.footer-eiffel-principal {
+    background:
+        radial-gradient(circle at 90% 10%, rgba(85, 157, 226, .16), transparent 30%),
+        radial-gradient(circle at 5% 90%, rgba(255, 255, 255, .8), transparent 35%),
+        linear-gradient(120deg, #f3f6fa 0%, #e8f0f9 55%, #dcecff 100%);
+    border-top: 1px solid #d8e5f2;
+}
+.footer-eiffel-principal::before {
+    border-color: rgba(18, 63, 140, .11);
+}
+.footer-eiffel-colunas h3 {
+    color: #123f8c;
+}
+.footer-eiffel-colunas h3::after {
+    background: linear-gradient(90deg, #2465b7, #90c7ff);
+}
+.footer-eiffel-colunas a,
+.footer-eiffel-colunas a:visited {
+    color: #27486d !important;
+}
+.footer-eiffel-colunas a:hover,
+.footer-eiffel-colunas a:focus-visible {
+    color: #092858 !important;
+}
+.footer-eiffel-colunas li a::after {
+    background: #2465b7;
+}
+.footer-eiffel-contactos p,
+.footer-eiffel-redes-texto {
+    color: #435a75;
+}
+.footer-eiffel-contactos i {
+    color: #2465b7;
+}
+.footer-eiffel-redes a,
+.footer-eiffel-redes a:visited {
+    background: #ffffff;
+    border-color: #c7dbf0;
+    color: #123f8c !important;
+    box-shadow: 0 5px 15px rgba(18, 63, 140, .06);
+}
+.footer-eiffel-redes a:hover,
+.footer-eiffel-redes a:focus-visible {
+    background: #e3f0ff;
+    border-color: #82b8ed;
+    color: #092858 !important;
+}
+.footer-eiffel-copyright {
+    background: #e4ebf4;
+    border-top: 1px solid #cddcec;
+    color: #435a75;
+}
+.footer-eiffel-subscricao {
+    box-shadow: 0 12px 32px rgba(18, 63, 140, .07);
+}
+.footer-eiffel-submit:hover,
+.footer-eiffel-submit:focus-visible {
+    color: #ffffff;
+}
+@media (prefers-reduced-motion: reduce) {
+    .footer-eiffel *,
+    .footer-eiffel *::before,
+    .footer-eiffel *::after {
+        transition: none !important;
+    }
+}

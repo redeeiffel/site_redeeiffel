@@ -182,76 +182,115 @@ class AdminController extends Controller
 
 
 
-   function add_p(Request $request){
-    
 
-      $clientes = new Publicacao();
-      $clientes->tipo = $request->tipo;
-      $clientes->titulo = $request->titulo;
-      $clientes->descricao = $request->descricao;
-      $clientes->texto_inicial = $request->texto_inicial;
-      $clientes->texto_secundario = $request->texto_secundario;
-      $clientes->texto_terceario = $request->texto_terceario;
-      $clientes->texto_quarto = $request->texto_quarto;
-      $clientes->data = $request->data;
-      $clientes->local = $request->local;
-      $clientes->link = $request->link;
-      $clientes->nomes = $request->nomes;
-      $clientes->nomes_um = $request->nomes_um;
-     
-      
-      if ($request->hasFile('imagem_externa') && $request->file('imagem_externa')->isValid()) {
+function add_p(Request $request)
+{
+    // 1. Validar a data antes de processar a publicação
+    $request->validate([
+        'data' => ['required', 'date_format:Y-m-d'],
+    ], [
+        'data.required' => 'A data da publicação é obrigatória.',
+        'data.date_format' => 'Seleccione uma data válida no calendário.',
+    ]);
 
-         $requestImage = $request->imagem_externa;
+    // 2. Criar a publicação
+    $clientes = new Publicacao();
 
-         $extension = $requestImage->extension();
+    $clientes->tipo = $request->tipo;
+    $clientes->titulo = $request->titulo;
+    $clientes->descricao = $request->descricao;
+    $clientes->texto_inicial = $request->texto_inicial;
+    $clientes->texto_secundario = $request->texto_secundario;
+    $clientes->texto_terceario = $request->texto_terceario;
+    $clientes->texto_quarto = $request->texto_quarto;
 
-         $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+    // Data validada no formato YYYY-MM-DD
+    $clientes->data = $request->data;
 
-         $requestImage->move(public_path('/media/publicacao'), $imageName);
+    $clientes->local = $request->local;
+    $clientes->link = $request->link;
+    $clientes->nomes = $request->nomes;
+    $clientes->nomes_um = $request->nomes_um;
 
-         $clientes->imagem_externa = $imageName;
+    // 3. Fotografia de capa principal
+    if (
+        $request->hasFile('imagem_externa') &&
+        $request->file('imagem_externa')->isValid()
+    ) {
+        $requestImage = $request->file('imagem_externa');
 
-     }
-     
-     if ($request->hasFile('imagem_interna') && $request->file('imagem_interna')->isValid()) {
+        $extension = $requestImage->extension();
 
-      $requestImage = $request->imagem_interna;
+        $imageName = md5(
+            $requestImage->getClientOriginalName() . microtime(true)
+        ) . "." . $extension;
 
-      $extension = $requestImage->extension();
+        $requestImage->move(
+            public_path('media/publicacao'),
+            $imageName
+        );
 
-      $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+        $clientes->imagem_externa = $imageName;
+    }
 
-      $requestImage->move(public_path('/media/publicacao'), $imageName);
+    // 4. Fotografia interna 1
+    if (
+        $request->hasFile('imagem_interna') &&
+        $request->file('imagem_interna')->isValid()
+    ) {
+        $requestImage = $request->file('imagem_interna');
 
-      $clientes->imagem_interna = $imageName;
+        $extension = $requestImage->extension();
 
-  }
-  if ($request->hasFile('imagem_interna_tercearia') && $request->file('imagem_interna_tercearia')->isValid()) {
+        $imageName = md5(
+            $requestImage->getClientOriginalName() . microtime(true)
+        ) . "." . $extension;
 
-   $requestImage = $request->imagem_interna_tercearia;
+        $requestImage->move(
+            public_path('media/publicacao'),
+            $imageName
+        );
 
-   $extension = $requestImage->extension();
+        $clientes->imagem_interna = $imageName;
+    }
 
-   $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+    // 5. Fotografia interna 2
+    if (
+        $request->hasFile('imagem_interna_tercearia') &&
+        $request->file('imagem_interna_tercearia')->isValid()
+    ) {
+        $requestImage = $request->file('imagem_interna_tercearia');
 
-   $requestImage->move(public_path('media/publicacao'), $imageName);
+        $extension = $requestImage->extension();
 
-   $clientes->imagem_interna_tercearia = $imageName;
+        $imageName = md5(
+            $requestImage->getClientOriginalName() . microtime(true)
+        ) . "." . $extension;
 
+        $requestImage->move(
+            public_path('media/publicacao'),
+            $imageName
+        );
+
+        $clientes->imagem_interna_tercearia = $imageName;
+    }
+
+    // 6. Guardar a publicação
+    $save = $clientes->save();
+
+    if ($save) {
+        return redirect()
+            ->back()
+            ->with('success', 'Publicação adicionada com sucesso.');
+    }
+
+    return redirect()
+        ->back()
+        ->with('fail', 'Não foi possível guardar a publicação.');
 }
-     
-      $save = $clientes->save();
-
-      if( $save ){
-          return redirect()->back()->with('success','Publicação adicionada com sucesso');
-      }else{
-          return redirect()->back()->with('fail','Something went wrong, failed to send');
-      }
-  }
 
 
-      function ver_publicacao()
+function ver_publicacao()
     {
 
       $publicacoes = Publicacao::all();
@@ -263,7 +302,7 @@ class AdminController extends Controller
       ]);
     }
 
-     function editar_publicacao($id)
+function editar_publicacao($id)
     {
 
       $post = Publicacao::findOrFail($id);
@@ -275,8 +314,7 @@ class AdminController extends Controller
       ]);
     }
 
-
-   function edit_publicacao(Request $request,$id){
+function edit_publicacao(Request $request,$id){
     
 
       $clientes =Publicacao::findOrFail($id);
@@ -338,14 +376,13 @@ class AdminController extends Controller
       $save = $clientes->update();
 
       if( $save ){
-          return redirect()->route('admin.ver_publicacao')->with('success','Publicação editada com sucesso');
+          return redirect()->route('admin.ver_publicacao')->with('success','Publica├º├úo editada com sucesso');
       }else{
           return redirect()->back()->with('fail','Something went wrong, failed to send');
       }
   }
 
-
-      public function delete_publicacao($id)
+public function delete_publicacao($id)
     {
 
         Publicacao::findOrFail($id)->delete();
@@ -353,125 +390,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Slider eliminado Com sucesso');
     }
 
-
-  function add_galeria()
-  {
-     
-     return view('admin.add_galeria');
-  }
-
-    function add_galery(Request $request){
-   
-
-     $clientes = new Galeria();
-     $clientes->titulo = $request->titulo;
-     $clientes->tipo = $request->tipo;
-    
-     if ($request->hasFile('fotografia') && $request->file('fotografia')->isValid()) {
-        $requestImage = $request->fotografia;
-        $extension = $requestImage->extension();
-        $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-        $requestImage->move(public_path('/media/galeria'), $imageName);
-        $clientes->fotografia = $imageName;
-    }
-
-     $save = $clientes->save();
-
-     if( $save ){
-         return redirect()->back()->with('success',' Slider adicionado com sucesso');
-     }else{
-         return redirect()->back()->with('fail','Something went wrong, failed to send');
-     }
- }
-
-       function ver_galeria()
-    {
-
-      $galerias = Galeria::all();
-
-       return view('admin.ver_galeria',[
-         'galerias'=>$galerias,
-        
-      
-      ]);
-    }
-
-
-       function editar_galeria($id)
-    {
-
-      $galeria = Galeria::findOrFail($id);
-
-       return view('admin.editar_galeria',[
-         'galeria'=>$galeria,
-        
-      
-      ]);
-    }
-
-
-    function edit_galeria(Request $request,$id){
-   
-
-     $clientes = Galeria::findOrFail($id);
-     $clientes->titulo = $request->titulo;
-     $clientes->tipo = $request->tipo;
-    
-     if ($request->hasFile('fotografia') && $request->file('fotografia')->isValid()) {
-        $requestImage = $request->fotografia;
-        $extension = $requestImage->extension();
-        $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-        $requestImage->move(public_path('/media/galeria'), $imageName);
-        $clientes->fotografia = $imageName;
-    }
-
-     $save = $clientes->update();
-
-     if( $save ){
-         return redirect()->route('admin.ver_galeria')->with('success',' Foto adicionado com sucesso');
-     }else{
-         return redirect()->back()->with('fail','Something went wrong, failed to send');
-     }
- }
-
-      public function delete_galeria($id)
-    {
-
-        Galeria::findOrFail($id)->delete();
-
-        return redirect()->back()->with('success', 'Slider eliminado Com sucesso');
-    }
-
-
-
-
-   function comunicado()
-  {
-     
-     return view('detalhes_noticias_comunicado');
-  }
-
-
-
- function enviar_sms(Request $request){
-   
-
-   $clientes = new Mensagem();
-   $clientes->nome = $request->nome;
-   $clientes->telefone = $request->telefone;
-   $clientes->email = $request->email;
-   $clientes->assunto = $request->assunto;
-   $clientes->mensagem = $request->mensagem;
-  
-
-   $save = $clientes->save();
-
-   if( $save ){
-       return redirect()->back()->with('success',' Mensagem enviada com sucesso');
-   }else{
-       return redirect()->back()->with('fail','Something went wrong, failed to send');
-   }
-}
 
 
        function ver_mensagem()
@@ -632,11 +550,32 @@ function new_latter(Request $request){
       return view('/comentarios',['comentarios'=>$comentarios]);
     }
 
-    function equipe()
-    {
-       return view('/equipe');
-    }
-    
+    public function equipe()
+{
+    $coordenacao = \App\Models\Liceu::query()
+        ->where('tipo', 'coordenacao')
+        ->where('ativo', true)
+        ->with(['membros' => function ($query) {
+            $query->where('ativo', true)
+                  ->orderBy('ordem')
+                  ->orderBy('id');
+        }])
+        ->first();
+
+    $liceus = \App\Models\Liceu::query()
+        ->where('tipo', 'liceu')
+        ->where('ativo', true)
+        ->with(['membros' => function ($query) {
+            $query->where('ativo', true)
+                  ->orderBy('ordem')
+                  ->orderBy('id');
+        }])
+        ->orderBy('ordem')
+        ->orderBy('nome')
+        ->get();
+
+    return view('equipe', compact('coordenacao', 'liceus'));
+}
     function eventos()
     {
       $eventos = Publicacao::where('tipo','=',2)->get();

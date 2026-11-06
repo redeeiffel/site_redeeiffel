@@ -1,0 +1,242 @@
+/* Rede Eiffel | Identidade visual do site publico - versao consolidada */
+:root {
+  --eiffel-blue: #123f8c;
+  --eiffel-blue-dark: #092858;
+  --eiffel-blue-mid: #2465b7;
+  --eiffel-gold: #f5c542;
+  --eiffel-ink: #233653;
+  --eiffel-muted: #61728a;
+  --eiffel-border: rgba(23, 66, 129, .10);
+}
+
+body.eiffel-public {
+  background: #f7faff;
+  color: var(--eiffel-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Faixa superior */
+body.eiffel-public .div_top {
+  background: linear-gradient(110deg, #092858, #174e9d 72%, #2367b8);
+  color: #fff;
+  position: relative;
+  isolation: isolate;
+}
+body.eiffel-public .div_top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 90% 0%, rgba(245,197,66,.20), transparent 28%);
+}
+body.eiffel-public .div_top .bg-primary {
+  background: rgba(255,255,255,.11) !important;
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: none;
+  border-radius: 9px;
+}
+
+/* Barra de navegacao */
+body.eiffel-public nav.fundo-nav {
+  background: linear-gradient(105deg, #123f8c, #0b326d) !important;
+  box-shadow: 0 9px 24px rgba(8,40,91,.15);
+  transition: box-shadow .25s ease;
+}
+body.eiffel-public nav.fundo-nav .nav-wrapper { max-width: 1320px; }
+body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a:not(.btn) {
+  position: relative;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: #fff !important;
+  transition: background-color .25s ease, color .25s ease;
+}
+body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a:not(.btn):hover,
+body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a:not(.btn):focus-visible {
+  background: rgba(255,255,255,.12) !important;
+  color: #fff !important;
+}
+/* Raio luminoso por baixo dos links do menu principal */
+body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  bottom: 7px;
+  left: 14px;
+  right: 14px;
+  height: 3px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, transparent, #5da9ff 25%, #fff 50%, #5da9ff 75%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .3s ease, opacity .2s ease;
+}
+body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a:not(.btn):hover::after,
+body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a:not(.btn):focus-visible::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+body.eiffel-public nav.fundo-nav .btn.white {
+  background: #fff !important;
+  color: #123f8c !important;
+  border-radius: 11px;
+  box-shadow: 0 5px 15px rgba(8,40,91,.18) !important;
+  font-weight: 700;
+}
+body.eiffel-public nav.fundo-nav .btn.white:hover {
+  background: #e8f2ff !important;
+  color: #092858 !important;
+}
+
+/* Submenus Materialize: texto SEMPRE azul escuro.
+   O unico efeito visual no hover e a linha inferior azul. */
+body.eiffel-public ul.dropdown-content {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(13,42,82,.18);
+  border: 1px solid var(--eiffel-border);
+  background: #fff;
+}
+body.eiffel-public ul.dropdown-content li,
+body.eiffel-public ul.dropdown-content li:hover,
+body.eiffel-public ul.dropdown-content li.active {
+  background-color: #fff !important;
+}
+body.eiffel-public ul.dropdown-content li > a,
+body.eiffel-public ul.dropdown-content li > span {
+  position: relative;
+  display: block;
+  color: #092858 !important;
+  background: #fff !important;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 11px 16px;
+  transition: none;
+}
+body.eiffel-public ul.dropdown-content li > a:hover,
+body.eiffel-public ul.dropdown-content li > a:focus,
+body.eiffel-public ul.dropdown-content li > a:focus-visible,
+body.eiffel-public ul.dropdown-content li:hover > a,
+body.eiffel-public ul.dropdown-content li:focus-within > a,
+body.eiffel-public ul.dropdown-content li.active > a {
+  color: #092858 !important;
+  background: #fff !important;
+}
+body.eiffel-public ul.dropdown-content li > a::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 5px;
+  height: 2px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #2465b7, #7dbaff);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .22s ease;
+  pointer-events: none;
+}
+body.eiffel-public ul.dropdown-content li > a:hover::after,
+body.eiffel-public ul.dropdown-content li > a:focus-visible::after,
+body.eiffel-public ul.dropdown-content li.active > a::after {
+  transform: scaleX(1);
+}
+/* O foco por teclado permanece perceptivel mesmo sem alterar a cor das letras */
+body.eiffel-public ul.dropdown-content li > a:focus-visible {
+  outline: 2px solid #78b7ff;
+  outline-offset: -2px;
+}
+
+/* Navegacao em telemoveis */
+body.eiffel-public .sidenav { background: #f9fbff; }
+body.eiffel-public .sidenav > li > a {
+  font-weight: 600;
+  color: var(--eiffel-blue-dark) !important;
+}
+body.eiffel-public .sidenav > li > a:hover,
+body.eiffel-public .sidenav > li > a:focus-visible {
+  background: #e9f2ff !important;
+  color: #092858 !important;
+}
+
+/* Fundos discretos do conteudo */
+body.eiffel-public section.main {
+  min-height: 45vh;
+  background: linear-gradient(180deg, #f7faff 0%, #fff 50%, #f6f9ff 100%);
+}
+body.eiffel-public section.main > section.white,
+body.eiffel-public section.main > section:not(.slider):not(.testemunhos-seccao) {
+  position: relative;
+  isolation: isolate;
+}
+body.eiffel-public section.main > section.white {
+  background: radial-gradient(ellipse at 98% 12%, rgba(44,111,198,.085), transparent 38%),
+              radial-gradient(ellipse at 0% 95%, rgba(245,197,66,.11), transparent 33%), #fff !important;
+}
+body.eiffel-public section.main > section.white > .container {
+  position: relative;
+  z-index: 1;
+}
+body.eiffel-public section.main h1,
+body.eiffel-public section.main h2,
+body.eiffel-public section.main h3 { letter-spacing: -.02em; }
+
+/* Cartoes, sem interferir no carrossel 3D */
+body.eiffel-public section.main .card:not(.testemunho-cartao) {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 9px 28px rgba(13,51,105,.08);
+  border: 1px solid var(--eiffel-border);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+body.eiffel-public section.main .card:not(.testemunho-cartao):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(13,51,105,.13);
+}
+body.eiffel-public section.main .btn:not(.floating-action-button):not(.testemunhos-seta) {
+  border-radius: 10px;
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: .015em;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+body.eiffel-public section.main .btn:not(.floating-action-button):hover {
+  transform: translateY(-2px);
+}
+body.eiffel-public section.main .btn.bg-primary:hover,
+body.eiffel-public section.main .btn.blue:hover {
+  background: #0c3776 !important;
+  color: #fff !important;
+  box-shadow: 0 7px 18px rgba(12,55,118,.20);
+}
+body.eiffel-public section.main a:not(.btn):not(.carousel-item):hover { color: #1a5eaa; }
+body.eiffel-public section.main a:focus-visible,
+body.eiffel-public button:focus-visible {
+  outline: 3px solid #78b7ff;
+  outline-offset: 3px;
+}
+body.eiffel-public .back-to-top {
+  border-radius: 14px;
+  background: var(--eiffel-blue) !important;
+  box-shadow: 0 9px 24px rgba(18,63,140,.24);
+}
+body.eiffel-public .back-to-top:hover { background: #0c3776 !important; }
+
+@media (max-width: 992px) {
+  body.eiffel-public nav.fundo-nav .nav-wrapper { padding-inline: 12px; }
+  body.eiffel-public .div_top .container { width: 95%; }
+}
+@media (max-width: 600px) {
+  body.eiffel-public .div_top .row .col { margin-bottom: 4px; }
+  body.eiffel-public section.main .card:not(.testemunho-cartao) { border-radius: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.eiffel-public .card,
+  body.eiffel-public .btn,
+  body.eiffel-public nav a,
+  body.eiffel-public ul.dropdown-content li > a::after,
+  body.eiffel-public nav.fundo-nav .nav-wrapper > ul > li > a::after {
+    transition: none !important;
+  }
+}

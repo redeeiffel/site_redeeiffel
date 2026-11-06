@@ -10,7 +10,7 @@
     content="escola, colégio, educação, formação, rede eiffel, rede, eiffel, liceus, inscrições, matrícula">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Anilésio Xavier">
-  <link rel="icon" type="image/x-icon" href="assets/img/logo.jpeg" />
+  <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.jpeg') }}" />
   <link rel="stylesheet" href="/assets/css/mais.css">
   <link rel="stylesheet" href="/assets/css/materialize.css">
   <link rel="stylesheet" href="/assets/css/bootstrap-grid.min.css">
@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/assets/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="/assets/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/rodape-eiffel.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/css/noticias-eiffel.css') }}?v=4">
+    <link rel="stylesheet" href="{{ asset('assets/css/eiffel-modern.css') }}?v=1">
 </head>
 <style>
   .dropdown-content {
@@ -48,22 +51,22 @@
 
 
   @media only screen and (min-width: 300px) and (max-width: 700px) {
-   
+
    .slider .Roboto-Black{
     font-size: 20px;
     margin-left: -50px;
     margin-top: 100px;
    }
 
-   .slider .font_logo{ 
+   .slider .font_logo{
     font-size: 20px;
     margin-left: -50px;
     margin-top: -20px;
     }
 
     .slider .btn{
-    margin-left:-50px;  
-    height: 50px;  
+    margin-left:-50px;
+    height: 50px;
     margin-top: 10px;
 }
 
@@ -88,22 +91,22 @@
 
 
 @media only screen and (min-width: 701px) and (max-width: 1500px) {
-   
+
    .slider .Roboto-Black{
     font-size: 20px;
     margin-left: -50px;
     margin-top: 100px;
    }
 
-   .slider .font_logo{ 
+   .slider .font_logo{
     font-size: 20px;
     margin-left: -50px;
     margin-top: -20px;
     }
 
     .slider .btn{
-    margin-left:-50px;  
-    height: 50px;  
+    margin-left:-50px;
+    height: 50px;
     margin-top: 10px;
 }
 
@@ -128,7 +131,7 @@
 
 
 @media only screen and (min-width: 1000px) and (max-width: 1500px) {
-   
+
 
 #logo_tipo_topo{
    display: none;
@@ -143,15 +146,15 @@ nav li a {
 
 </style>
 
-<body>
+<body class="eiffel-public">
 
-  
+
 @if (Session::get('success'))<!-- /.card-header -->
 <div class="card-body">
-  
+
   <div class="alert alert-success alert-dismissible">
     <h5> Sucesso!</h5>
-    {{ Session::get('success') }} 
+    {{ Session::get('success') }}
   </div>
 </div>
 <!-- /.card-body -->
@@ -163,26 +166,49 @@ nav li a {
     <div class="alert alert-danger alert-dismissible">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <h5>Falha!</h5>
-      {{ Session::get('fail') }} 
+      {{ Session::get('fail') }}
     </div>
-    
+
   </div>
   <!-- /.card-body -->
 
 @endif
 
 
+  {{-- Calendários dinâmicos: usar PDFs activos do painel; manter os originais como alternativa. --}}
+  @php
+    $calendariosPublicos = \App\Models\Documento::query()
+        ->where('ativo', true)
+        ->whereIn('tipo_calendario', ['coordenacao', 'nacional'])
+        ->get(['tipo_calendario', 'ficheiro'])
+        ->keyBy('tipo_calendario');
+
+    $calendarioCoordenacao = $calendariosPublicos->get('coordenacao');
+    $calendarioNacional = $calendariosPublicos->get('nacional');
+
+    $urlCalendarioCoordenacao = $calendarioCoordenacao
+        && \Illuminate\Support\Facades\Storage::disk('public')->exists($calendarioCoordenacao->ficheiro)
+        ? route('documentos.calendario', ['tipo' => 'coordenacao'])
+        : asset('assets/c.pdf');
+
+    $urlCalendarioNacional = $calendarioNacional
+        && \Illuminate\Support\Facades\Storage::disk('public')->exists($calendarioNacional->ficheiro)
+        ? route('documentos.calendario', ['tipo' => 'nacional'])
+        : asset('assets/calendario_2026.pdf');
+  @endphp
+
   <ul id="dropdownRedeEiffel" class="dropdown-content">
     <li><a href="{{ route('sobre') }}">Sobre nós</a></li>
     <li><a href="{{ route('apresentacao_liceu') }}">Apresentação dos Liceus</a></li>
     <li><a href="{{ route('acerca') }}">Acerca da Rede Eiffel</a></li>
     <li><a href="{{ route('organograma') }}">Organograma Geral</a></li>
-    <li><a href="/assets/c.pdf" target="_blank">Calendário Escolar Nacional da Coordenação</a></li>
-    <li><a href="/calendario_2026.pdf" target="_blank">Calendário Escolar Nacional</a></li>
+    <li><a href="{{ $urlCalendarioCoordenacao }}" target="_blank">Calendário Escolar Nacional da Coordenação</a></li>
+    <li><a href="{{ $urlCalendarioNacional }}" target="_blank">Calendário Escolar Nacional</a></li>
+    <li><a href="{{ route('documentos.index') }}">Documentos e Publicações em PDF</a></li>
     <li class="divider"></li>
     <li><a href="{{ route('nossos_parceiros') }}">Parceiros</a></li>
   </ul>
-  
+
   <ul id="dropdownMideas" class="dropdown-content">
     <li><a href="{{ route('eventos') }}">Eventos</a></li>
     <li><a href="{{ route('comentarios') }}">Comentários</a></li>
@@ -205,38 +231,57 @@ nav li a {
     <li><a href="{{ route('sucessos_estudantis') }}">Sucesso Estudantil</a></li>
   </ul>
 
-  <ul id="dropdownLiceus" class="dropdown-content">
+
+<ul id="dropdownLiceus" class="dropdown-content">
+
     <li>
-        <a href="/assets/novo_mapa.jpg" target="blank">
-            <span class="fa fa-search"></span> Localizar Liceus
+        <a href="{{ asset('assets/novo_mapa.jpg') }}" target="_blank">
+            <span class="fa fa-map-marker-alt"></span>
+            Localizar Liceus
         </a>
     </li>
 
+    <li class="divider"></li>
+
     <li>
-        <a href="{{ route('manutencao', ['liceu' => 'Caxito']) }}">
-            Caxito
+        <a href="{{ route('manutencao', ['liceu' => 'Dande']) }}">
+            Liceu N.º 4002 BGO Eiffel do Dande
         </a>
     </li>
 
     <li>
         <a href="{{ route('manutencao', ['liceu' => 'Malanje']) }}">
-            Malanje
+            Liceu N.º 309 MJE Eiffel Malanje
         </a>
     </li>
 
     <li>
-        <a href="{{ route('manutencao', ['liceu' => 'Ndalatando']) }}">
-            Ndalatando
+        <a href="{{ route('manutencao', ['liceu' => 'Cazengo']) }}">
+            Liceu N.º 1029 CNO Eiffel do Cazengo
         </a>
     </li>
 
     <li>
         <a href="{{ route('manutencao', ['liceu' => 'Ondjiva']) }}">
-            Ondjiva
+            Liceu N.º 080 CNE Eiffel Ondjiva
         </a>
     </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Huambo']) }}">
+            Liceu N.º 2192 HBO Eiffel do Huambo
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Luena']) }}">
+            Liceu N.º 887 MCO Eiffel Luena
+        </a>
+    </li>
+
 </ul>
-  
+
+
 
   <ul id="dropdownRedeEiffelWeb" class="dropdown-content">
   <li><a href="{{ route('sobre') }}">Sobre nós</a></li>
@@ -244,8 +289,9 @@ nav li a {
     <li><a href="{{ route('acerca') }}">Acerca da Rede Eiffel</a></li>
 
     <li><a href="{{ route('organograma') }}">Organograma Geral</a></li>
-    <li><a href="/assets/c.pdf" target="_blank">Calendário Escolar Nacional da Coordenação</a></li>
-      <li><a href="/assets/calendario_2026.pdf" target="_blank">Calendário Escolar Nacional</a></li>
+    <li><a href="{{ $urlCalendarioCoordenacao }}" target="_blank">Calendário Escolar Nacional da Coordenação</a></li>
+      <li><a href="{{ $urlCalendarioNacional }}" target="_blank">Calendário Escolar Nacional</a></li>
+    <li><a href="{{ route('documentos.index') }}">Documentos e Publicações em PDF</a></li>
     <li class="divider"></li>
     <li><a href="{{ route('nossos_parceiros') }}">Parceiros</a></li>
 </ul>
@@ -271,14 +317,56 @@ nav li a {
     <li><a href="{{ route('sucessos_estudantis') }}">Sucesso Estudantil</a></li>
  </ul>
 
-  <ul id="dropdownLiceusWeb" class="dropdown-content">
-    <li><a href="/assets/novo_mapa.jpg" target="blank"><span class="fa fa-search"></span> Localizar Liceus</a>
+
+<ul id="dropdownLiceusWeb" class="dropdown-content">
+
+    <li>
+        <a href="{{ asset('assets/novo_mapa.jpg') }}" target="_blank">
+            <span class="fa fa-map-marker-alt"></span>
+            Localizar Liceus
+        </a>
     </li>
-    <li><a href="{{ route('manutencao') }}">Caxito</a></li>
-    <li><a href="{{ route('manutencao') }}">Malanje</a></li>
-    <li><a href="{{ route('manutencao') }}">Ndalatando</a></li>
-    <li><a href="{{ route('manutencao') }}">Ondjiva</a></li>
-  </ul>
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Dande']) }}">
+            Liceu N.º 4002 BGO Eiffel do Dande
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Malanje']) }}">
+            Liceu N.º 309 MJE Eiffel Malanje
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Cazengo']) }}">
+            Liceu N.º 1029 CNO Eiffel do Cazengo
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Ondjiva']) }}">
+            Liceu N.º 080 CNE Eiffel Ondjiva
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Huambo']) }}">
+            Liceu N.º 2192 HBO Eiffel do Huambo
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('manutencao', ['liceu' => 'Luena']) }}">
+            Liceu N.º 887 MCO Eiffel Luena
+        </a>
+    </li>
+
+</ul>
+
 
   <ul id="dropdownGaleriaWeb" class="dropdown-content">
   <li><a href="{{ route('galerias') }}">Galeria de fotos</a></li>
@@ -329,7 +417,7 @@ nav li a {
   <div class="">
     <nav class="fundo-nav" id="navbar">
       <div class="nav-wrapper container">
-        <a href="{{ route('welcome') }}" class="brand-logo mt-1"><img src="assets/img/logo.jpeg" alt=""
+        <a href="{{ route('welcome') }}" class="brand-logo mt-1"><img src="{{ asset('assets/img/logo.jpeg') }}" alt=""
             style="object-fit: cover; max-width: 100px;" class="" id="logo_tipo_topo"> </a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger white-text"><i class=" fa fa-bars"></i></a>
         <ul class="Roboto-Bold right hide-on-med-and-down texto-uppercase">
@@ -344,12 +432,12 @@ nav li a {
           <li><a href="#" data-target="dropdownProjectosWeb" class="dropdown-trigger white-text"><span
                 class="fa fa-chevron-down"></span> Projectos</a></li>
           <li><a href="{{ route('inscricoes') }}" class="white-text">Inscrições</a></li>
-          
+
           <!-- <li><a href="galeria.html" class="white-text">Galeria </a></li> -->
           <li><a href="#" data-target="dropdownLiceusWeb" class="dropdown-trigger white-text"><span
                 class="fa fa-chevron-down"></span> Liceus</a></li>
           <li><a href="{{ route('fale_conosco') }}" class="white-text">Contacte-nos</a></li>
-          <li><a href="https://liceueiffel.redeeiffel.ao/" class="btn borda-1 text-primary white z-depth-0"><span
+          <li><a href="https://plataforma.redeeiffel.ao/" class="btn borda-1 text-primary white z-depth-0"><span
                 class="fa fa-lock"></span> Área reservada </a> </li>
         </ul>
       </div>
@@ -372,7 +460,7 @@ nav li a {
     <li><a href="#" data-target="dropdownLiceus" class="dropdown-trigger text-primary"><span
           class="fa fa-chevron-down"></span> Liceus</a></li>
     <li><a href="{{ route('fale_conosco') }}" class="text-primary">Contacte-nos</a></li>
-    <li><a href="liceueiffel.redeeiffel.ao" class="btn borda-1 white-text bg-primary z-depth-0"><span class="fa fa-lock"></span> Área
+    <li><a href="https://plataforma.redeeiffel.ao/" class="btn borda-1 white-text bg-primary z-depth-0"><span class="fa fa-lock"></span> Área
         reservada </a> </li>
   </ul>
 
@@ -413,93 +501,7 @@ nav li a {
 
 
   <script src="/assets/owlcarousel/owl.carousel.min.js"></script>
-  <footer class="page-footer grey lighten-3">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12 l6 offset-l3 center">
-          <img src="/assets/img/logo.jpeg" alt="" style="max-width: 200px; object-fit: cover;" class="">
-          <p class="grey-text text-darken-4 texto-0">A rede Eiffel é uma rede de quatro liceus científicos públicos
-            gratuitos que nasceu de uma parceria assinada a 23 de Maio de 2008 entre o Governo angolano, a empresa
-            petrolífera TotalEnergies e a Missão Laica Francesa. Inscreva-se na nossa site, e receba as actualizações recentes:</p>
-
-            <form action="{{ route('new_latter')}}" method="post" class="">
-              @csrf    
-               
-              <div class="row">
-                  <div class="col s12 m12 l12">
-                    <input type="text" name="email" class="browser-default estilo-input" placeholder="Email" maxlength="50" required id="id_nome">
-                  </div>
-                </div>
-               
-               
-      
-                <div class="row">
-                  <div class="col s12 m12 l12 ">
-                    <div class="">
-                      <button type="submit" class="btn bg-primary borda-1"><span class="bi bi-send"></span> Submeter</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-      
-        </div>
-      </div>
-      <div class="row">
-        <div class="col m4 l3 s12">
-          <h5 class="grey-text text-darken-4 negrito">Links úteis</h5>
-          <ul>
-            <li><a class="grey-text text-darken-4" href="{{ route('welcome') }}">&#x203A; Início</a></li>
-            <li><a class="grey-text text-darken-4" href="{{ route('sobre') }}">&#x203A; Apresentação da Rede</a></li>
-            <li><a class="grey-text text-darken-4" href="{{ route('fale_conosco') }}">&#x203A; Contacte-nos</a></li>
-          </ul>
-        </div>
-
-        <div class="col m4 l3 s12">
-          <h5 class="grey-text text-darken-4 negrito">Mais</h5>
-          <ul>
-            <li><a class="grey-text text-darken-4" href="{{route('projecto_educacional') }}">&#x203A; Projectos educativo</a>
-            </li>
-            <li><a class="grey-text text-darken-4" href="{{ route('organizacao_educaional') }}">&#x203A; Vida Escolar </a></li>
-            <li><a class="grey-text text-darken-4" href="{{ route('inscricoes') }}">&#x203A; Incrições</a></li>
-          </ul>
-        </div>
-
-        <div class="col m4 l3 s12">
-          <h5 class="grey-text text-darken-4 negrito">Localização</h5>
-          <p class="texto-1 grey-text text-darken-4">
-            Luanda <br> Municipio de Rangel <br>Vila Alice <br> Rua Alberto Correia
-          </p>
-
-          <p class="texto-1 grey-text text-darken-4">
-            <span class="negrito">Telefone</span>: (+244) 223 510 015 <br>
-            <span class="negrito">Email</span>: redeeiffel@redeeiffel.ao
-          </p>
-        </div>
-
-        <div class="col m4 l3 s12">
-          <h5 class="grey-text text-darken-4 negrito">Nossas Redes Sociais</h5>
-          <p class="texto-1 grey-text text-darken-4">Encontre-nos atravéz das nossas redes sociais</p>
-
-          <a class="texto-2 grey-text text-darken-4 me-4"
-            href="https://www.instagram.com/?fbclid=IwAR1w6vE_uweEbBlaybvkl6bwMMuw5jg-i-oUtFt_D5W-T8bmFL-XZXE7hHI"
-            target="_blank"><span class="fab fa-instagram"></span></a>
-          <a class="texto-2 grey-text text-darken-4 me-4"
-            href="https://www.facebook.com/profile.html?id=100082984706560&_rdc=2&_rdr" target="_blank"><span
-              class="fab fa-facebook"></span></a>
-
-        </div>
-
-      </div>
-    </div>
-    <div class="footer-copyright" style="text-align: center;">
-      <div class="container grey-text text-darken-4">
-        ©
-        <script>
-          document.write(new Date().getFullYear())
-        </script> Copyright Rede Eiffel
-      </div>
-    </div>
-  </footer>
+  <x-rodape-eiffel />
 
 
   <a href="#" class="back-to-top"><span class="fa fa-chevron-up"></span></a>
@@ -530,13 +532,14 @@ nav li a {
 </script>
 
 <script>
-  document.getElementById("defaultOpen").click();
+  var defaultOpen = document.getElementById("defaultOpen");
+  if (defaultOpen) defaultOpen.click();
 </script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.collapsible');
-    var instances = M.Collapsible.init(elems, options);
+    if (elems.length) M.Collapsible.init(elems);
   });
 
   $(document).ready(function () {
@@ -571,6 +574,7 @@ nav li a {
   }
 </script>
 
+  @include('components.assistente-eiffel')
 </body>
 
 </html>

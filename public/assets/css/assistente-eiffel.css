@@ -1,0 +1,506 @@
+
+/* =====================================================
+   REDE EIFFEL
+   ASSISTENTE VIRTUAL — CSS COMPLETO
+   Posição fixa no canto inferior direito
+   GIF animado sem deslocação pela página
+===================================================== */
+
+/* =========================
+   ESTRUTURA PRINCIPAL
+========================= */
+
+.eiffel-assistant {
+    position: fixed !important;
+    right: 18px !important;
+    bottom: 16px !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 99999;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #173b65;
+    pointer-events: none;
+}
+
+.eiffel-assistant button,
+.eiffel-assistant select,
+.eiffel-assistant input {
+    font-family: inherit;
+}
+
+.eiffel-assistant button {
+    cursor: pointer;
+}
+
+.eiffel-mascot,
+.eiffel-bot-panel,
+#eiffel-restore {
+    pointer-events: auto;
+}
+
+.eiffel-assistant [hidden] {
+    display: none !important;
+}
+
+/* =========================
+   PERSONAGEM ANIMADO
+========================= */
+
+.eiffel-mascot {
+    position: relative;
+    width: 155px;
+    transition: opacity 0.2s ease;
+
+    /* Impede o robô de andar pela página */
+    animation: none !important;
+    transform: none !important;
+}
+
+.eiffel-assistant.is-walking .eiffel-mascot,
+.eiffel-assistant.is-paused .eiffel-mascot,
+.eiffel-assistant.is-open .eiffel-mascot {
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Botão que contém o GIF */
+
+.eiffel-bot-toggle,
+.eiffel-bot-toggle:hover,
+.eiffel-bot-toggle:focus {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    outline-offset: 3px;
+
+    /* Não adicionar movimento CSS ao GIF */
+    animation: none !important;
+    transform: none !important;
+}
+
+/* GIF original */
+
+.eiffel-bot-toggle img {
+    display: block;
+    width: 100%;
+    height: 205px;
+    object-fit: contain;
+    object-position: bottom;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 8px 7px #0003);
+
+    /*
+       O ficheiro GIF continua animado.
+       Apenas as animações CSS estão desactivadas.
+    */
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Compatibilidade com a imagem mini */
+
+.eiffel-bot-toggle img.eiffel-robo-mini {
+    display: block;
+    width: 65px;
+    height: 75px;
+    object-fit: contain;
+    animation: none !important;
+}
+
+.eiffel-bot-emoji {
+    display: none !important;
+}
+
+/* =========================
+   BALÃO DE AJUDA
+========================= */
+
+.eiffel-bot-bubble {
+    position: absolute;
+    right: 104px;
+    top: 14px;
+    width: 130px;
+    padding: 7px 10px;
+    border: 1px solid #b5d1ee;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #173b65;
+    box-shadow: 0 4px 14px #0002;
+    font-size: 12px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* =========================
+   ACÇÕES DO PERSONAGEM
+========================= */
+
+.eiffel-mascot-actions {
+    position: absolute;
+    right: 2px;
+    bottom: 0;
+    display: flex;
+    gap: 5px;
+}
+
+.eiffel-mascot-actions button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid #b5d1ee;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #1769b3;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* O botão de pausar a caminhada deixa de ser necessário */
+
+#eiffel-walk-toggle {
+    display: none !important;
+}
+
+/* =========================
+   RESTAURAR ASSISTENTE
+========================= */
+
+#eiffel-restore {
+    min-height: 48px;
+    padding: 12px 16px 12px 47px;
+    border: 1px solid #ffffff;
+    border-radius: 28px;
+    background:
+        #1769b3
+        url('/assets/images/assistente-eiffel-animado.gif')
+        no-repeat 8px center;
+    background-size: 32px 32px;
+    color: #ffffff;
+    box-shadow: 0 5px 20px #0003;
+}
+
+/* =========================
+   JANELA DE CONVERSA
+========================= */
+
+.eiffel-bot-panel {
+    position: absolute;
+    right: 165px;
+    bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 550px;
+    max-height: calc(100dvh - 32px);
+    overflow: hidden;
+    border: 1px solid #cbdff2;
+    border-radius: 19px;
+    background: #ffffff;
+    box-shadow: 0 15px 45px #0004;
+    z-index: 100000;
+}
+
+/* Janela expandida */
+
+.eiffel-bot-panel.is-expanded {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: min(720px, calc(100vw - 36px));
+    height: min(750px, calc(100dvh - 36px));
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.eiffel-bot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #123d70;
+    color: #ffffff;
+    border-bottom: 3px solid #2878c7;
+}
+
+.eiffel-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.eiffel-heading > span {
+    font-size: 24px;
+}
+
+.eiffel-heading strong,
+.eiffel-heading small {
+    display: block;
+}
+
+.eiffel-heading strong {
+    font-size: 15px;
+}
+
+.eiffel-heading small {
+    font-size: 11px;
+    color: #e9f3ff;
+}
+
+/* Botões do cabeçalho */
+
+.eiffel-window-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 5px;
+}
+
+.eiffel-window-actions button {
+    width: 29px;
+    height: 29px;
+    padding: 0;
+    border: 0;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* =========================
+   SELECÇÃO DE IDIOMA
+========================= */
+
+.eiffel-bot-language {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 13px;
+    border-bottom: 1px solid #e1e9f4;
+}
+
+.eiffel-bot-language label {
+    font-size: 12px;
+    color: #355e80;
+}
+
+.eiffel-bot-language select {
+    flex: 1;
+    width: auto;
+    height: 33px;
+    margin: 0;
+    border: 1px solid #d3dfed;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 13px;
+}
+
+/* =========================
+   ÁREA DE MENSAGENS
+========================= */
+
+.eiffel-bot-messages {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    padding: 14px;
+    overflow-y: auto;
+    background: #f0f5fb;
+}
+
+.eiffel-bot-message {
+    max-width: 87%;
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    box-shadow: 0 2px 7px #0000000b;
+}
+
+/* Mensagens do assistente */
+
+.eiffel-bot-message.bot {
+    align-self: flex-start;
+    border: 1px solid #d9e6f5;
+    border-top-left-radius: 3px;
+    background: #ffffff;
+    color: #173b65;
+}
+
+/* Mensagens do utilizador */
+
+.eiffel-bot-message.user {
+    align-self: flex-end;
+    border: 1px solid #1769b3;
+    border-top-right-radius: 3px;
+    background: #1769b3;
+    color: #ffffff;
+}
+
+/* =========================
+   SUGESTÕES DE PERGUNTAS
+========================= */
+
+.eiffel-bot-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 105px;
+    padding: 9px 12px;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+.eiffel-bot-suggestions button {
+    padding: 6px 9px;
+    border: 1px solid #1769b3;
+    border-radius: 20px;
+    background: #ffffff;
+    color: #1769b3;
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.eiffel-bot-suggestions button:hover {
+    background: #1769b3;
+    color: #ffffff;
+}
+
+/* =========================
+   FORMULÁRIO DE MENSAGENS
+========================= */
+
+.eiffel-bot-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 10px;
+    border-top: 1px solid #e0e7f1;
+    background: #ffffff;
+}
+
+.eiffel-bot-form input {
+    flex: 1;
+    min-width: 0;
+    height: 38px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 10px !important;
+    border: 1px solid #ccd9e8 !important;
+    border-radius: 20px !important;
+    font-size: 13px !important;
+    box-shadow: none !important;
+}
+
+.eiffel-bot-form button {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #1769b3;
+    color: #ffffff;
+}
+
+/* =========================
+   RESPONSIVIDADE — TELEMÓVEIS
+========================= */
+
+@media (max-width: 700px) {
+
+    .eiffel-assistant {
+        right: 10px !important;
+        bottom: 10px !important;
+    }
+
+    .eiffel-mascot {
+        width: 92px;
+    }
+
+    .eiffel-bot-toggle img {
+        height: 120px;
+    }
+
+    .eiffel-bot-bubble {
+        display: none;
+    }
+
+    .eiffel-bot-panel {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        width: calc(100vw - 20px);
+        height: min(560px, calc(100dvh - 20px));
+    }
+
+    /* Ocultar personagem enquanto a conversa está aberta */
+
+    .eiffel-assistant.is-open .eiffel-mascot {
+        visibility: hidden;
+    }
+
+    .eiffel-bot-panel.is-expanded {
+        right: 5px;
+        bottom: 5px;
+        width: calc(100vw - 10px);
+        height: calc(100dvh - 10px);
+    }
+}
+
+/* =========================
+   ECRÃS MUITO PEQUENOS
+========================= */
+
+@media (max-width: 380px) {
+
+    .eiffel-assistant {
+        right: 7px !important;
+        bottom: 7px !important;
+    }
+
+    .eiffel-mascot {
+        width: 82px;
+    }
+
+    .eiffel-bot-toggle img {
+        height: 105px;
+    }
+
+    .eiffel-bot-panel {
+        right: 5px;
+        bottom: 5px;
+        width: calc(100vw - 10px);
+        height: calc(100dvh - 10px);
+    }
+}
+
+/* =========================
+   ACESSIBILIDADE
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .eiffel-mascot,
+    .eiffel-bot-toggle,
+    .eiffel-bot-toggle img {
+        animation: none !important;
+    }
+}

@@ -1,0 +1,284 @@
+
+/* ==========================================
+   NOTÍCIAS — REDE EIFFEL ANGOLA
+   ========================================== */
+
+/* SECÇÃO PRINCIPAL */
+
+.noticias-eiffel-section {
+    padding: 42px 0 60px;
+}
+
+/* GRELHA AUTOMÁTICA */
+
+.noticias-eiffel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+    align-items: stretch;
+}
+
+/* ==========================================
+   CARTÕES DAS NOTÍCIAS
+   ========================================== */
+
+.noticias-eiffel-grid > .noticia-eiffel-card {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+    box-sizing: border-box;
+
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.noticia-eiffel-card:hover {
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   IMAGENS DAS NOTÍCIAS
+   ========================================== */
+
+.noticias-eiffel-grid .noticia-eiffel-imagem {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    height: 240px;
+
+    padding: 0;
+    margin: 0;
+
+    flex-shrink: 0;
+    overflow: hidden;
+
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #eeeeee;
+}
+
+/* A fotografia ocupa toda a área */
+
+.noticias-eiffel-grid .noticia-eiffel-imagem img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: none;
+    max-height: none;
+
+    margin: 0;
+    padding: 0;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.3s ease;
+}
+
+/* Efeito suave na fotografia */
+
+.noticia-eiffel-card:hover .noticia-eiffel-imagem img {
+    transform: scale(1.025);
+}
+
+/* Quando a notícia não tem fotografia */
+
+.noticia-eiffel-sem-imagem {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #999999;
+    background-color: #f5f5f5;
+}
+
+/* ==========================================
+   CONTEÚDO DAS NOTÍCIAS
+   ========================================== */
+
+.noticia-eiffel-conteudo {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    min-width: 0;
+
+    padding: 20px !important;
+}
+
+/* DATA */
+
+.noticia-eiffel-data {
+    color: #777777;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    margin: 0 0 10px;
+}
+
+/* TÍTULO */
+
+.noticia-eiffel-titulo {
+    color: inherit;
+
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    margin: 0 0 12px;
+
+    overflow-wrap: anywhere;
+}
+
+/* DESCRIÇÃO */
+
+.noticia-eiffel-descricao {
+    color: #555555;
+
+    font-size: 15px;
+    line-height: 1.65;
+
+    margin: 0;
+
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   BOTÃO CONTINUAR A LER
+   ========================================== */
+
+.noticia-eiffel-acao {
+    margin-top: auto;
+
+    padding: 16px 20px !important;
+
+    border-top: 1px solid #eeeeee !important;
+}
+
+.noticia-eiffel-acao .btn {
+    border-radius: 4px;
+}
+
+/* ==========================================
+   ESTADO SEM NOTÍCIAS
+   ========================================== */
+
+.noticia-eiffel-vazio {
+    padding: 65px 20px;
+
+    color: #666666;
+    text-align: center;
+}
+
+.noticia-eiffel-vazio h5 {
+    margin-top: 20px;
+}
+
+/* ==========================================
+   TABLETS
+   ========================================== */
+
+@media (min-width: 701px) and (max-width: 992px) {
+
+    .noticias-eiffel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .noticias-eiffel-grid .noticia-eiffel-imagem {
+        height: 210px;
+    }
+
+    .noticia-eiffel-titulo {
+        font-size: 19px;
+    }
+
+    .noticia-eiffel-conteudo {
+        padding: 18px !important;
+    }
+}
+
+/* ==========================================
+   TELEMÓVEIS
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .noticias-eiffel-section {
+        padding: 30px 0 45px;
+    }
+
+    .noticias-eiffel-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .noticias-eiffel-grid > .noticia-eiffel-card {
+        border-radius: 7px;
+    }
+
+    .noticias-eiffel-grid .noticia-eiffel-imagem {
+        height: 210px;
+    }
+
+    .noticia-eiffel-titulo {
+        font-size: 19px;
+        line-height: 1.4;
+    }
+
+    .noticia-eiffel-descricao {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .noticia-eiffel-conteudo {
+        padding: 18px !important;
+    }
+
+    .noticia-eiffel-acao {
+        padding: 15px 18px !important;
+    }
+}
+
+/* ==========================================
+   TELEMÓVEIS PEQUENOS
+   ========================================== */
+
+@media (max-width: 400px) {
+
+    .noticias-eiffel-grid .noticia-eiffel-imagem {
+        height: 190px;
+    }
+
+    .noticia-eiffel-titulo {
+        font-size: 18px;
+    }
+
+    .noticia-eiffel-conteudo {
+        padding: 16px !important;
+    }
+}

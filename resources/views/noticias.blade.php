@@ -1,52 +1,98 @@
 
 @extends('layouts.main')
+
 @section('content')
 
-
+{{-- Banner --}}
 <section class="banner-other">
-  <div class="container">
-    <div class="row">
-      <div class="col s12 white-text" data-aos="fade-up" data-aos-delay="100">
-        <h5 class="title">Notícias</h5>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 white-text"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <h5 class="title">Notícias</h5>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-  <section class="white">
+{{-- Lista de notícias --}}
+<section class="white noticias-eiffel-section">
     <div class="container">
-      <div class="row">
 
-     
+        @if($noticias->isNotEmpty())
 
+            <div class="noticias-eiffel-grid">
 
-        @foreach( $noticias as $noticia) 
-        
-        <div class="col s12 m4 l6" data-aos="fade-up" data-aos-delay="100">
-          <div class="card z-depth-0">
-            <div class="card-image">
-              <img src="media/publicacao/{{$noticia->imagem_externa}}" style="height: 300px; object-fit: cover; " loading="lazy" alt="" />
+                @foreach($noticias as $noticia)
+
+                    <article class="card z-depth-0 noticia-eiffel-card">
+
+                        {{-- Imagem --}}
+                        <div class="noticia-eiffel-imagem">
+
+                            @if($noticia->imagem_externa)
+                                <img
+                                    src="{{ asset('media/publicacao/' . $noticia->imagem_externa) }}"
+                                    alt="{{ $noticia->titulo }}"
+                                    loading="lazy">
+                            @else
+                                <div class="noticia-eiffel-sem-imagem">
+                                    <i class="far fa-image fa-3x"></i>
+                                </div>
+                            @endif
+
+                        </div>
+
+                        {{-- Conteúdo --}}
+                        <div class="noticia-eiffel-conteudo">
+
+                            <p class="noticia-eiffel-data Roboto-Regular">
+                                {{ $noticia->data }}
+                            </p>
+
+                            <h2 class="noticia-eiffel-titulo Roboto-Bold text-primary">
+                                {{ $noticia->titulo }}
+                            </h2>
+
+                            <p class="noticia-eiffel-descricao Roboto-Regular">
+                                {{ strip_tags($noticia->descricao ?? '') }}
+                            </p>
+
+                        </div>
+
+                        {{-- Botão --}}
+                        <div class="noticia-eiffel-acao">
+
+                            <a href="{{ url('/detalhes_noticias/' . $noticia->id) }}"
+                               class="bg-primary btn z-depth-0">
+                                Continuar a ler
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                @endforeach
+
             </div>
-            <div class="card-content px-0">
-              <p>
-                <span class="Roboto-Regular">{{$noticia->data}} </span>
-              </p>
-              <span class="card-title Roboto-Bold text-primary">{{$noticia->titulo}} </span>
 
-              <p  class="Roboto-Regular">{{$noticia->descricao}}</p>
-            </div>
-            <div class="card-action px-0">
-              <a href="/detalhes_noticias/{{$noticia->id}}" class="bg-primary btn z-depth-0">Continuar a ler</a>
-            </div>
-          </div>
-        </div>
-    
-        @endforeach  
-      
+        @else
 
-      
-          
-          
+            <div class="noticia-eiffel-vazio">
+                <i class="far fa-newspaper fa-3x"></i>
+
+                <h5>Sem notícias disponíveis</h5>
+
+                <p>
+                    As próximas novidades da Rede Eiffel
+                    serão publicadas aqui.
+                </p>
+            </div>
+
+        @endif
+
     </div>
-  </section>
+</section>
+
 @endsection

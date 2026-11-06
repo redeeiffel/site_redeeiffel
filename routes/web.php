@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\Admin\DocumentoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,6 +71,23 @@ Route::post('/new_latter', [AdminController::class, 'new_latter'])->name('new_la
 Route::get('/share/whatsapp', [AdminController::class, 'shareViaWhatsApp']);
 Route::get('/share/facebook', [AdminController::class, 'shareViaFacebook']);
 
+// --------------------------------------------------------------------------
+
+
+// DOCUMENTOS PÚBLICOS
+
+Route::get('/documentos', [DocumentoController::class, 'publico'])
+    ->name('documentos.index');
+
+Route::get('/documentos/calendario/{tipo}', [DocumentoController::class, 'calendario'])
+    ->where('tipo', 'nacional|coordenacao')
+    ->name('documentos.calendario');
+
+Route::get('/documentos/{documento}/visualizar', [DocumentoController::class, 'visualizar'])
+    ->name('documentos.visualizar');
+
+Route::get('/documentos/{documento}/baixar', [DocumentoController::class, 'baixar'])
+    ->name('documentos.baixar');
 
 // --------------------------------------------------------------------------
 // Área administrativa
@@ -99,6 +116,73 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // ----------------------------------------------------------------------
 
     Route::middleware(['auth:admin'])->group(function () {
+
+        // Gestão de Documentos — apenas administradores autenticados
+        Route::get('/documentos', [DocumentoController::class, 'index'])
+            ->name('documentos.index');
+
+        Route::post('/documentos', [DocumentoController::class, 'guardar'])
+            ->name('documentos.guardar');
+
+        Route::put('/documentos/{documento}', [DocumentoController::class, 'atualizar'])
+            ->name('documentos.atualizar');
+
+        Route::patch('/documentos/{documento}/estado', [DocumentoController::class, 'alterarEstado'])
+            ->name('documentos.estado');
+
+        Route::delete('/documentos/{documento}', [DocumentoController::class, 'eliminar'])
+            ->name('documentos.eliminar');
+
+        // Gestao de liceus e equipa
+        Route::get('/gestao-equipe',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'index']
+        )->name('gestao_equipe.index');
+
+        Route::post('/gestao-equipe/liceus',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'guardarLiceu']
+        )->name('gestao_equipe.liceus.guardar');
+
+        Route::put('/gestao-equipe/liceus/{liceu}',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'atualizarLiceu']
+        )->name('gestao_equipe.liceus.atualizar');
+
+        Route::post('/gestao-equipe/membros',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'guardarMembro']
+        )->name('gestao_equipe.membros.guardar');
+
+        Route::put('/gestao-equipe/membros/{membro}',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'atualizarMembro']
+        )->name('gestao_equipe.membros.atualizar');
+
+        Route::patch('/gestao-equipe/membros/{membro}/estado',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'alterarEstadoMembro']
+        )->name('gestao_equipe.membros.estado');
+
+        // Gestao de liceus e equipa
+        Route::get('/gestao-equipe',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'index']
+        )->name('gestao_equipe.index');
+
+        Route::post('/gestao-equipe/liceus',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'guardarLiceu']
+        )->name('gestao_equipe.liceus.guardar');
+
+        Route::put('/gestao-equipe/liceus/{liceu}',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'atualizarLiceu']
+        )->name('gestao_equipe.liceus.atualizar');
+
+        Route::post('/gestao-equipe/membros',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'guardarMembro']
+        )->name('gestao_equipe.membros.guardar');
+
+        Route::put('/gestao-equipe/membros/{membro}',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'atualizarMembro']
+        )->name('gestao_equipe.membros.atualizar');
+
+        Route::patch('/gestao-equipe/membros/{membro}/estado',
+            [\App\Http\Controllers\Admin\GestaoEquipeController::class, 'alterarEstadoMembro']
+        )->name('gestao_equipe.membros.estado');
+
 
         Route::get('/home', [AdminController::class, 'home'])->name('home');
 
