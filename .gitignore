@@ -17,3 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Backups temporarios do desenvolvimento
+*.bak
+*.bak-*
