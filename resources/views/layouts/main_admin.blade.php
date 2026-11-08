@@ -211,7 +211,7 @@
     /* O menu hambúrguer aparece quando o menu completo
        já não cabe confortavelmente no ecrã. */
 
-    @media (max-width: 1450px) {
+    @media (max-width: 1100px) {
       .admin-navbar .admin-desktop-menu {
         display: none !important;
       }
@@ -239,6 +239,41 @@
       .admin-main-content {
         padding-top: 15px;
       }
+    }
+      /* MENU ADMINISTRATIVO INDEPENDENTE */
+    #mobile-demo.admin-sidenav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: min(320px, 88vw);
+        height: 100vh;
+        z-index: 10002;
+        display: block;
+        visibility: hidden;
+        transform: translateX(-105%);
+        transition: transform .25s ease, visibility .25s;
+        overflow-y: auto;
+    }
+
+    #mobile-demo.admin-sidenav.admin-open {
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .admin-menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 10001;
+        background: rgba(0,0,0,.55);
+        display: none;
+    }
+
+    .admin-menu-overlay.admin-open {
+        display: block;
+    }
+
+    body.admin-menu-open {
+        overflow: hidden;
     }
   </style>
 </head>
@@ -366,7 +401,8 @@
 
   {{-- MENU LATERAL RESPONSIVO --}}
 
-  <ul class="sidenav admin-sidenav" id="mobile-demo">
+  <div class="admin-menu-overlay" id="admin-menu-overlay"></div>
+<ul class="sidenav admin-sidenav" id="mobile-demo">
 
     <li>
       <div class="admin-mobile-header">
@@ -514,36 +550,38 @@
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="/assets/materialize.js"></script>
 
-  <script>
-    $(document).ready(function () {
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menu = document.getElementById('mobile-demo');
+      const overlay = document.getElementById('admin-menu-overlay');
+      const trigger = document.querySelector('.admin-menu-trigger');
 
-      var menu = $('.sidenav');
+      if (!menu || !overlay || !trigger) return;
 
-      if (typeof $.fn.sidenav === 'function') {
-
-        menu.sidenav({
-          edge: 'left',
-          draggable: true,
-          inDuration: 250,
-          outDuration: 200
-        });
-
-        $('.admin-menu-trigger').on('click', function (event) {
-          event.preventDefault();
-
-          menu.sidenav('open');
-          $(this).attr('aria-expanded', 'true');
-        });
-
-        menu.on('click', 'a[href]', function () {
-          menu.sidenav('close');
-          $('.admin-menu-trigger').attr('aria-expanded', 'false');
-        });
-
-      } else {
-        console.error('Materialize Sidenav não foi carregado.');
+      function closeMenu() {
+        menu.classList.remove('admin-open');
+        overlay.classList.remove('admin-open');
+        document.body.classList.remove('admin-menu-open');
+        trigger.setAttribute('aria-expanded', 'false');
       }
 
+      trigger.addEventListener('click', function (event) {
+        event.preventDefault();
+        menu.classList.add('admin-open');
+        overlay.classList.add('admin-open');
+        document.body.classList.add('admin-menu-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      });
+
+      overlay.addEventListener('click', closeMenu);
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeMenu();
+      });
+
+      menu.querySelectorAll('a[href]').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
     });
   </script>
 

@@ -714,4 +714,18 @@ function new_latter(Request $request){
         return redirect()->away($facebookUrl);
     }
 
+
+    // Gestao administrativa da galeria
+    public function ver_galeria()
+    {
+        $galerias = Galeria::orderBy('id', 'desc')->get();
+
+        return view('admin.ver_galeria', compact('galerias'));
+    }
+
+    // Apresentar formulario de nova fotografia
+    public function add_galeria()
+    {
+        return view('admin.add_galeria');
+    }
 }
