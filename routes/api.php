@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Assistente virtual publico da Rede Eiffel
+Route::post('/assistente/perguntar',
+    [\App\Http\Controllers\AssistenteController::class, 'perguntar']
+)->middleware('throttle:30,1')->name('assistente.perguntar');

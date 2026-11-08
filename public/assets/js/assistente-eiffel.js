@@ -1,29 +1,284 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const root=document.getElementById('eiffel-assistant'); if(!root)return;
-  const el=id=>document.getElementById(id);
-  const panel=el('eiffel-bot-panel'), toggle=el('eiffel-bot-toggle'), restore=el('eiffel-restore'), mascot=el('eiffel-mascot');
-  const lang=el('eiffel-bot-lang'), messages=el('eiffel-bot-messages'), suggestions=el('eiffel-bot-suggestions'), input=el('eiffel-bot-input');
-  const translations={
-    pt:{welcome:'Olá! Sou o Assistente Eiffel. Posso ajudar com informações sobre a Rede Eiffel, os liceus e os contactos. O que gostaria de saber?',questions:['O que é a Rede Eiffel?','Quais são os liceus?','Como contactar?'],answers:['A Rede Eiffel é uma rede de liceus em Angola dedicada à educação e à formação dos estudantes.','A Rede Eiffel tem liceus em diferentes localidades de Angola, incluindo Ondjiva, Luena, Huambo, Malanje, Ndalatando e Dande.','Consulte a secção de contactos deste site para obter informações oficiais.'],unknown:'Ainda não tenho uma resposta específica. Consulte as informações e os contactos oficiais do site.',placeholder:'Escreva a sua pergunta...'},
-    en:{welcome:'Hello! I am the Eiffel Assistant. I can help with information about Rede Eiffel, its schools and contacts. What would you like to know?',questions:['What is Rede Eiffel?','Where are the schools?','How can I contact you?'],answers:['Rede Eiffel is a network of secondary schools in Angola dedicated to education and student development.','Rede Eiffel has schools in several locations in Angola, including Ondjiva, Luena, Huambo, Malanje, Ndalatando and Dande.','Please visit the contact section of this website for official information.'],unknown:'I do not have a specific answer yet. Please check the official information and contact details on this website.',placeholder:'Type your question...'},
-    fr:{welcome:'Bonjour ! Je suis l’Assistant Eiffel. Je peux vous renseigner sur le Réseau Eiffel, les lycées et les contacts. Que souhaitez-vous savoir ?',questions:['Qu’est-ce que le Réseau Eiffel ?','Où sont les lycées ?','Comment vous contacter ?'],answers:['Le Réseau Eiffel est un réseau de lycées en Angola consacré à l’éducation et à la formation des élèves.','Le Réseau Eiffel possède des lycées dans plusieurs localités angolaises, notamment Ondjiva, Luena, Huambo, Malanje, Ndalatando et Dande.','Veuillez consulter la rubrique Contacts du site pour obtenir des informations officielles.'],unknown:'Je ne dispose pas encore d’une réponse précise. Veuillez consulter les informations et les contacts officiels du site.',placeholder:'Écrivez votre question...'}
+  const root = document.getElementById('eiffel-assistant');
+  if (!root) return;
+
+  const el = id => document.getElementById(id);
+
+  const panel = el('eiffel-bot-panel');
+  const toggle = el('eiffel-bot-toggle');
+  const restore = el('eiffel-restore');
+  const mascot = el('eiffel-mascot');
+  const lang = el('eiffel-bot-lang');
+  const messages = el('eiffel-bot-messages');
+  const suggestions = el('eiffel-bot-suggestions');
+  const input = el('eiffel-bot-input');
+  const form = el('eiffel-bot-form');
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  const endpoint = '/api/assistente/perguntar';
+
+  let pending = false;
+  let requestVersion = 0;
+
+  const translations = {
+    pt: {
+      welcome: 'Olá! Sou o Assistente Eiffel. Posso ajudar com informações públicas sobre a Rede Eiffel. O que gostaria de saber?',
+      questions: [
+        'Quem é o Director Geral da Coordenação Nacional?',
+        'Quais são os liceus da Rede Eiffel?',
+        'Como posso contactar a Rede Eiffel?'
+      ],
+      placeholder: 'Escreva a sua pergunta...',
+      error: 'Não foi possível comunicar com o assistente neste momento. Por favor, tente novamente.',
+      unavailable: 'Essa informação ainda não foi disponibilizada no site da Rede Eiffel.',
+      waiting: 'A obter resposta...',
+      source: 'Consultar fonte'
+    },
+    en: {
+      welcome: 'Hello! I am the Eiffel Assistant. I can help with public information about Rede Eiffel. What would you like to know?',
+      questions: [
+        'Who is the General Director of the National Coordination?',
+        'Which schools belong to Rede Eiffel?',
+        'How can I contact Rede Eiffel?'
+      ],
+      placeholder: 'Type your question...',
+      error: 'Unable to contact the assistant right now. Please try again.',
+      unavailable: 'This information has not yet been made available on the Rede Eiffel website.',
+      waiting: 'Getting a response...',
+      source: 'View source'
+    },
+    fr: {
+      welcome: 'Bonjour ! Je suis l’Assistant Eiffel. Je peux vous renseigner sur les informations publiques du Réseau Eiffel. Que souhaitez-vous savoir ?',
+      questions: [
+        'Qui est le Directeur Général de la Coordination Nationale ?',
+        'Quels sont les lycées du Réseau Eiffel ?',
+        'Comment contacter le Réseau Eiffel ?'
+      ],
+      placeholder: 'Écrivez votre question...',
+      error: 'Impossible de contacter l’assistant pour le moment. Veuillez réessayer.',
+      unavailable: "Cette information n'a pas encore été publiée sur le site du Réseau Eiffel.",
+      waiting: 'Recherche de la réponse...',
+      source: 'Consulter la source'
+    }
   };
-  const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}\s]/gu,'').trim();
-  function addMessage(value,who){const item=document.createElement('div');item.className='eiffel-bot-message '+who;item.textContent=value;messages.appendChild(item);messages.scrollTop=messages.scrollHeight;}
-  function answer(q){const d=translations[lang.value];const n=norm(q);let index=d.questions.findIndex(x=>norm(x)===n);if(index<0){const words=n.split(/\s+/);if(words.some(w=>['contacto','contactos','contact','contacter','telefone','email'].includes(w)))index=2;else if(words.some(w=>['liceu','liceus','escola','escolas','schools','school','lycees','lycee'].includes(w)))index=1;else if(n.includes('rede eiffel')||n.includes('reseau eiffel'))index=0;}addMessage(q,'user');addMessage(index>=0?d.answers[index]:d.unknown,'bot');}
-  function render(){const d=translations[lang.value];messages.replaceChildren();suggestions.replaceChildren();input.placeholder=d.placeholder;addMessage(d.welcome,'bot');d.questions.forEach(q=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.addEventListener('click',()=>answer(q));suggestions.appendChild(b);});}
-  function openChat(){root.classList.add('is-open');panel.hidden=false;toggle.setAttribute('aria-expanded','true');input.focus();}
-  function closeChat(){root.classList.remove('is-open');panel.hidden=true;toggle.setAttribute('aria-expanded','false');toggle.focus();}
-  toggle.addEventListener('click',()=>panel.hidden?openChat():closeChat());
-  el('eiffel-minimize').addEventListener('click',closeChat);
-  el('eiffel-bot-close').addEventListener('click',closeChat);
-  el('eiffel-expand').addEventListener('click',function(){const expanded=panel.classList.toggle('is-expanded');this.setAttribute('aria-pressed',String(expanded));this.title=expanded?'Reduzir':'Expandir';});
-  el('eiffel-hide').addEventListener('click',()=>{closeChat();mascot.hidden=true;restore.hidden=false;root.classList.remove('is-walking');});
-  restore.addEventListener('click',()=>{restore.hidden=true;mascot.hidden=false;root.classList.add('is-walking');toggle.focus();});
-  el('eiffel-walk-toggle').addEventListener('click',function(){const paused=root.classList.toggle('is-paused');root.classList.toggle('is-walking',!paused);this.textContent=paused?'▶':'Ⅱ';this.title=paused?'Retomar movimento':'Pausar movimento';this.setAttribute('aria-label',this.title);});
-  lang.addEventListener('change',render);
-  el('eiffel-bot-form').addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(!q)return;answer(q);input.value='';input.focus();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)closeChat();});
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)root.classList.add('is-walking');
+
+  function addMessage(value, who) {
+    const item = document.createElement('div');
+    item.className = 'eiffel-bot-message ' + who;
+    item.textContent = value;
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+    return item;
+  }
+
+  function addSources(fontes, idioma) {
+    if (!Array.isArray(fontes)) return;
+
+    fontes.forEach(fonte => {
+      if (!fonte || typeof fonte.url !== 'string') return;
+
+      let url;
+
+      try {
+        url = new URL(fonte.url, window.location.origin);
+      } catch (_) {
+        return;
+      }
+
+      if (!['http:', 'https:'].includes(url.protocol)) return;
+      if (url.origin !== window.location.origin) return;
+
+      const item = document.createElement('div');
+      item.className = 'eiffel-bot-message bot';
+
+      const link = document.createElement('a');
+      link.href = url.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = fonte.titulo || translations[idioma].source;
+
+      item.appendChild(link);
+      messages.appendChild(item);
+    });
+
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function setPending(value) {
+    pending = value;
+    input.disabled = value;
+    submitButton.disabled = value;
+
+    suggestions.querySelectorAll('button').forEach(button => {
+      button.disabled = value;
+    });
+  }
+
+  async function answer(question) {
+    if (pending) return;
+
+    const idioma = lang.value;
+    const d = translations[idioma];
+
+    addMessage(question, 'user');
+
+    setPending(true);
+
+    const version = ++requestVersion;
+    const waitingMessage = addMessage(d.waiting, 'bot');
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          pergunta: question,
+          idioma: idioma
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+      }
+
+      const data = await response.json();
+
+      if (version !== requestVersion) return;
+
+      if (!data || typeof data.resposta !== 'string') {
+        throw new Error('Resposta inválida');
+      }
+
+      waitingMessage.textContent = data.resposta || d.unavailable;
+
+      if (data.encontrado === true) {
+        addSources(data.fontes, idioma);
+      }
+
+    } catch (error) {
+      console.error('Assistente Eiffel:', error);
+
+      if (version === requestVersion) {
+        waitingMessage.textContent = d.error;
+      }
+    } finally {
+      if (version === requestVersion) {
+        setPending(false);
+        messages.scrollTop = messages.scrollHeight;
+      }
+    }
+  }
+
+  function render() {
+    requestVersion++;
+
+    messages.replaceChildren();
+    suggestions.replaceChildren();
+
+    const d = translations[lang.value];
+
+    input.placeholder = d.placeholder;
+    addMessage(d.welcome, 'bot');
+
+    d.questions.forEach(question => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = question;
+
+      button.addEventListener('click', () => {
+        answer(question);
+      });
+
+      button.disabled = pending;
+      suggestions.appendChild(button);
+    });
+  }
+
+  function openChat() {
+    root.classList.add('is-open');
+    panel.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    input.focus();
+  }
+
+  function closeChat() {
+    root.classList.remove('is-open');
+    panel.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', () => {
+    panel.hidden ? openChat() : closeChat();
+  });
+
+  el('eiffel-minimize').addEventListener('click', closeChat);
+  el('eiffel-bot-close').addEventListener('click', closeChat);
+
+  el('eiffel-expand').addEventListener('click', function () {
+    const expanded = panel.classList.toggle('is-expanded');
+    this.setAttribute('aria-pressed', String(expanded));
+    this.title = expanded ? 'Reduzir' : 'Expandir';
+  });
+
+  el('eiffel-hide').addEventListener('click', () => {
+    closeChat();
+    mascot.hidden = true;
+    restore.hidden = false;
+    root.classList.remove('is-walking');
+  });
+
+  restore.addEventListener('click', () => {
+    restore.hidden = true;
+    mascot.hidden = false;
+    root.classList.add('is-walking');
+    toggle.focus();
+  });
+
+  el('eiffel-walk-toggle').addEventListener('click', function () {
+    const paused = root.classList.toggle('is-paused');
+    root.classList.toggle('is-walking', !paused);
+    this.textContent = paused ? '▶' : 'Ⅱ';
+    this.title = paused ? 'Retomar movimento' : 'Pausar movimento';
+    this.setAttribute('aria-label', this.title);
+  });
+
+  lang.addEventListener('change', function () {
+    if (pending) {
+      lang.value = lang.dataset.previous || 'pt';
+      return;
+    }
+
+    lang.dataset.previous = lang.value;
+    render();
+  });
+
+  lang.dataset.previous = lang.value;
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const question = input.value.trim();
+
+    if (!question || pending) return;
+
+    answer(question);
+    input.value = '';
+    input.focus();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !panel.hidden) {
+      closeChat();
+    }
+  });
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    root.classList.add('is-walking');
+  }
+
   render();
 });

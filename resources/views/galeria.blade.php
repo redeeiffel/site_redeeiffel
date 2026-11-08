@@ -152,9 +152,7 @@
           <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
             <h4>Contactos</h4>
             <p>
-              Benfica <br>
-              Município de Belas<br>
-              Luanda <br><br>
+              Benguela - Baía Farta<br><br>
               <strong>Phone:</strong> +244 926 04 89 39<br>
               <strong>Email:</strong> rede.eiffel@gmail.com<br>
             </p>

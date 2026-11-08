@@ -23,12 +23,12 @@
 
             <div class="col s12 m4 l3" data-aos="fade-up" data-aos-delay="300">
                 <i class="fa fa-paper-plane fa-3x cor1"></i>
-                <h6 class="grey-text">Benfica, Município de Belas Luanda</h6>
+                <h6 class="grey-text">Benguela - Baía Farta</h6>
             </div>
 
             <div class="col s12 m4 l3" data-aos="fade-up" data-aos-delay="400">
               <i class="fa fa-mobile-alt fa-3x cor1"></i>
-                <h6 class="grey-text">+244 225 400 505</h6>
+                <h6 class="grey-text">Coordenação: <a href="tel:+244227210460">(+244) 227 210 460</a></h6>
             </div>
 
             <div class="col s12 m4 l3" data-aos="fade-up" data-aos-delay="400">

@@ -1,0 +1,408 @@
+﻿
+/* =====================================================
+   REDE EIFFEL — DETALHES DAS NOTÍCIAS
+   Estilo harmonizado com noticias-eiffel.css
+   ===================================================== */
+
+/* ÁREA PRINCIPAL */
+
+.eiffel-article {
+    padding: 42px 0 60px;
+    background: #ffffff;
+}
+
+.eiffel-article *,
+.eiffel-article *::before,
+.eiffel-article *::after {
+    box-sizing: border-box;
+}
+
+/* CONTENTOR DA NOTÍCIA */
+
+.eiffel-article .article-card {
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px;
+
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+
+    box-shadow: none;
+}
+
+/* CABEÇALHO */
+
+.eiffel-article .eiffel-news-header {
+    margin-bottom: 25px;
+}
+
+.eiffel-article .eiffel-news-category {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 12px;
+
+    color: #777777;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.eiffel-article .eiffel-news-title {
+    margin: 0 0 16px;
+
+    color: inherit;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+/* DATA */
+
+.eiffel-article .article-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.eiffel-article .article-date i {
+    font-size: 14px;
+}
+
+/* IMAGENS */
+
+.eiffel-article .article-figure {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.eiffel-article .article-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 560px;
+
+    object-fit: contain;
+
+    background: #f5f5f5;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+}
+
+.eiffel-article .article-caption {
+    margin: 10px 0 0;
+
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* TEXTO DA NOTÍCIA */
+
+.eiffel-article .article-text {
+    margin: 20px 0;
+
+    color: #555555;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+/* LINK VER MAIS */
+
+.eiffel-article .eiffel-news-more {
+    margin: 28px 0;
+}
+
+.eiffel-article .article-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 42px;
+    padding: 10px 18px;
+
+    background: #ffffff;
+    color: inherit;
+
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.eiffel-article .article-more:hover {
+    background: #f5f5f5;
+    border-color: #cccccc;
+    color: inherit;
+    text-decoration: none;
+}
+
+.eiffel-article .article-more i {
+    font-size: 13px;
+}
+
+/* SEPARADOR */
+
+.eiffel-article .article-divider {
+    height: 1px;
+    margin: 30px 0;
+
+    background: #eeeeee;
+    border: 0;
+}
+
+/* RODAPÉ DA NOTÍCIA */
+
+.eiffel-article .eiffel-news-footer {
+    margin-top: 25px;
+}
+
+.eiffel-article .eiffel-news-share-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.eiffel-article .article-share-title {
+    margin: 0 0 6px;
+
+    color: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.eiffel-article .eiffel-share-description {
+    margin: 0;
+
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.eiffel-article .eiffel-share-decoration {
+    color: #999999;
+    font-size: 22px;
+}
+
+/* BOTÕES DE PARTILHA */
+
+.eiffel-article .article-share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.eiffel-article .share-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 42px;
+    padding: 10px 15px;
+
+    background: #ffffff;
+    color: #555555;
+
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.eiffel-article .share-button i {
+    font-size: 16px;
+}
+
+.eiffel-article .share-button:hover {
+    background: #f5f5f5;
+    border-color: #dddddd;
+    color: #333333;
+
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+/* CORES DISCRETAS DAS REDES SOCIAIS */
+
+.eiffel-article .eiffel-share-facebook i {
+    color: #1877f2;
+}
+
+.eiffel-article .eiffel-share-whatsapp i {
+    color: #128c7e;
+}
+
+.eiffel-article .eiffel-share-linkedin i {
+    color: #0a66c2;
+}
+
+.eiffel-article .eiffel-share-x i {
+    color: #333333;
+}
+
+.eiffel-article .eiffel-share-email i {
+    color: #777777;
+}
+
+/* ASSINATURA INSTITUCIONAL */
+
+.eiffel-article .eiffel-news-signature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 30px;
+    padding-top: 18px;
+
+    border-top: 1px solid #eeeeee;
+
+    color: #777777;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.eiffel-article .eiffel-news-signature i {
+    color: #777777;
+}
+
+/* ACESSIBILIDADE */
+
+.eiffel-article a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+/* TABLETS */
+
+@media (max-width: 992px) {
+
+    .eiffel-article .article-card {
+        padding: 26px;
+    }
+
+    .eiffel-article .eiffel-news-title {
+        font-size: 25px;
+    }
+}
+
+/* TELEMÓVEIS */
+
+@media (max-width: 700px) {
+
+    .eiffel-article {
+        padding: 30px 0 45px;
+    }
+
+    .eiffel-article .article-card {
+        padding: 20px 18px;
+        border-radius: 7px;
+    }
+
+    .eiffel-article .eiffel-news-title {
+        font-size: 22px;
+    }
+
+    .eiffel-article .eiffel-news-category {
+        font-size: 12px;
+    }
+
+    .eiffel-article .article-text {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .eiffel-article .article-figure {
+        margin: 20px 0;
+    }
+
+    .eiffel-article .article-image {
+        max-height: 400px;
+        border-radius: 7px;
+    }
+
+    .eiffel-article .eiffel-share-decoration {
+        display: none;
+    }
+
+    .eiffel-article .article-share {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .eiffel-article .share-button {
+        width: 100%;
+        min-width: 0;
+        padding: 10px;
+    }
+}
+
+/* ECRÃS MUITO PEQUENOS */
+
+@media (max-width: 360px) {
+
+    .eiffel-article .article-card {
+        padding: 18px 14px;
+    }
+
+    .eiffel-article .article-share {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* MOVIMENTO REDUZIDO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .eiffel-article .share-button,
+    .eiffel-article .article-more {
+        transition: none;
+    }
+
+    .eiffel-article .share-button:hover {
+        transform: none;
+    }
+}

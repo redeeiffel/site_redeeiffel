@@ -1,4 +1,4 @@
-﻿<footer class="page-footer footer-eiffel" aria-label="Rodapé da Rede Eiffel">
+<footer class="page-footer footer-eiffel" aria-label="Rodapé da Rede Eiffel">
     <div class="footer-eiffel-newsletter">
         <div class="container">
             <div class="footer-eiffel-newsletter-grid">
@@ -51,8 +51,8 @@
                 <div class="col s12 m6 l3">
                     <h3>Localização e contactos</h3>
                     <address class="footer-eiffel-contactos">
-                        <p><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Luanda, Município do Rangel, Vila Alice, Rua Alberto Correia</span></p>
-                        <p><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:+244223510015">(+244) 223 510 015</a></p>
+                        <p><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Benguela - Baía Farta</span></p>
+                        <p><i class="fa fa-phone" aria-hidden="true"></i><span>Coordenação: <a href="tel:+244227210460">(+244) 227 210 460</a></span></p>
                         <p><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:redeeiffel@redeeiffel.ao">redeeiffel@redeeiffel.ao</a></p>
                     </address>
                 </div>

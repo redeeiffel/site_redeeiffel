@@ -1,0 +1,122 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\Publicacao;
+use Illuminate\Support\Str;
+
+class PesquisaPublicacoesService
+{
+    public function pesquisar(string $pergunta, string $idioma = 'pt'): ?array
+    {
+        $texto = $this->normalizar($pergunta);
+
+        $noticias = $this->contem($texto, [
+            'noticia', 'noticias', 'publicacao', 'publicacoes',
+            'novidade', 'novidades', 'ultimas noticias',
+            'news', 'latest news', 'recent news',
+            'actualite', 'actualites', 'nouvelles'
+        ]);
+
+        $eventos = $this->contem($texto, [
+            'evento', 'eventos', 'actividade', 'actividades',
+            'atividade', 'atividades',
+            'event', 'events', 'activities',
+            'evenement', 'evenements', 'activites'
+        ]);
+
+        if (!$noticias && !$eventos) {
+            return null;
+        }
+
+        $tipo = $eventos && !$noticias ? 2 : 1;
+
+        $query = Publicacao::query()
+            ->where('tipo', $tipo);
+
+        $registos = $query
+            ->orderByDesc('id')
+            ->limit(5)
+            ->get();
+
+        if ($registos->isEmpty()) {
+            return [
+                'encontrado' => false,
+                'resposta' => match ($idioma) {
+                    'en' => 'There are currently no publications available in this category.',
+                    'fr' => "Aucune publication n'est actuellement disponible dans cette catégorie.",
+                    default => 'Neste momento, não existem publicações disponíveis nesta categoria.',
+                },
+                'fontes' => [],
+            ];
+        }
+
+        $linhas = [];
+        $fontes = [];
+
+        foreach ($registos as $publicacao) {
+            $titulo = trim((string) $publicacao->titulo);
+
+            if ($titulo === '') {
+                continue;
+            }
+
+            $descricao = Str::limit(
+                trim(strip_tags((string) $publicacao->descricao)),
+                180
+            );
+
+            $linhas[] = $titulo
+                . ($descricao !== '' ? ' — ' . $descricao : '');
+
+            $url = $tipo === 1
+                ? url('/detalhes_noticias/' . $publicacao->id)
+                : route('eventos');
+
+            $fontes[] = [
+                'titulo' => $titulo,
+                'url' => $url,
+            ];
+        }
+
+        if (empty($linhas)) {
+            return null;
+        }
+
+        $introducao = match ($idioma) {
+            'en' => $tipo === 1
+                ? 'Latest news published on the Rede Eiffel website:'
+                : 'Events published on the Rede Eiffel website:',
+            'fr' => $tipo === 1
+                ? 'Dernières actualités publiées sur le site du Réseau Eiffel :'
+                : 'Événements publiés sur le site du Réseau Eiffel :',
+            default => $tipo === 1
+                ? 'Últimas notícias publicadas no site da Rede Eiffel:'
+                : 'Eventos publicados no site da Rede Eiffel:',
+        };
+
+        return [
+            'encontrado' => true,
+            'resposta' => $introducao . "\n" . implode("\n", $linhas),
+            'fontes' => $fontes,
+        ];
+    }
+
+    private function contem(string $texto, array $termos): bool
+    {
+        foreach ($termos as $termo) {
+            if (str_contains($texto, $this->normalizar($termo))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function normalizar(string $texto): string
+    {
+        return trim(
+            preg_replace('/\s+/u', ' ', Str::ascii(mb_strtolower($texto)))
+        );
+    }
+}

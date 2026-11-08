@@ -381,7 +381,7 @@ nav li a {
             <div class="col s6 m6 l3 mt-3">
               <span class="p-2 bg-primary accent-3 w-100 borda-1 left">
                 <span class="white-text fa fa-phone-square"></span>
-                <span class="white-text"> (+244) 225 400 505 </span>
+                <a href="tel:+244227210460" class="white-text" style="display:inline-block;max-width:100%;white-space:normal;overflow-wrap:break-word;line-height:1.4;">Coordenação: (+244) 227 210 460</a>
               </span>
             </div>
 

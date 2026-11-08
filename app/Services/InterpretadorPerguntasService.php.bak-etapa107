@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Str;
+
+class InterpretadorPerguntasService
+{
+    private const VOCABULARIO = [
+        // Português
+        'foto', 'fotos', 'fotografia', 'fotografias',
+        'imagem', 'imagens', 'galeria', 'galerias',
+        'laboratorio', 'laboratorios',
+        'documento', 'documentos', 'comunicado', 'comunicados',
+        'calendario', 'calendarios',
+        'comentario', 'comentarios',
+        'noticia', 'noticias', 'evento', 'eventos',
+        'inscricao', 'inscricoes',
+        'liceu', 'liceus',
+        'huambo', 'ondjiva', 'malanje', 'cazengo',
+        'dande', 'luena', 'benguela',
+        'slider', 'sliders', 'banner', 'banners',
+
+        // Inglês
+        'photo', 'photos', 'picture', 'pictures',
+        'image', 'images', 'gallery',
+        'laboratory', 'laboratories',
+        'document', 'documents',
+        'calendar', 'comments',
+        'news', 'events',
+        'registration', 'school',
+
+        // Francês
+        'galerie', 'laboratoire', 'laboratoires',
+        'calendrier', 'actualites',
+        'evenements', 'inscription',
+        'documents', 'commentaires',
+    ];
+
+    public function normalizar(string $texto): string
+    {
+        $texto = Str::ascii(mb_strtolower($texto));
+
+        $texto = preg_replace('/[^a-z0-9]+/', ' ', $texto);
+
+        return trim(preg_replace('/\s+/', ' ', $texto));
+    }
+
+    public function corrigir(string $pergunta): string
+    {
+        $texto = $this->normalizar($pergunta);
+
+        if ($texto === '') {
+            return '';
+        }
+
+        $palavras = explode(' ', $texto);
+
+        foreach ($palavras as &$palavra) {
+            $palavra = $this->corrigirPalavra($palavra);
+        }
+
+        unset($palavra);
+
+        return implode(' ', $palavras);
+    }
+
+    private function corrigirPalavra(string $palavra): string
+    {
+        if (strlen($palavra) < 4) {
+            return $palavra;
+        }
+
+        if (in_array($palavra, self::VOCABULARIO, true)) {
+            return $palavra;
+        }
+
+        $melhor = $palavra;
+        $menorDistancia = PHP_INT_MAX;
+        $empate = false;
+
+        foreach (self::VOCABULARIO as $candidata) {
+            if (abs(strlen($palavra) - strlen($candidata)) > 2) {
+                continue;
+            }
+
+            $distancia = levenshtein($palavra, $candidata);
+
+            if ($distancia < $menorDistancia) {
+                $menorDistancia = $distancia;
+                $melhor = $candidata;
+                $empate = false;
+            } elseif ($distancia === $menorDistancia) {
+                $empate = true;
+            }
+        }
+
+        $limite = strlen($palavra) >= 8 ? 2 : 1;
+
+        if ($menorDistancia <= $limite && !$empate) {
+            return $melhor;
+        }
+
+        return $palavra;
+    }
+
+    public function contemTermo(string $texto, string $termo): bool
+    {
+        $texto = $this->corrigir($texto);
+        $termo = $this->normalizar($termo);
+
+        if ($termo === '') {
+            return false;
+        }
+
+        return str_contains(
+            ' ' . $texto . ' ',
+            ' ' . $termo . ' '
+        );
+    }
+}

@@ -1,0 +1,102 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Liceus e localizações
+    |--------------------------------------------------------------------------
+    | Fonte: apresentacao_liceu.blade.php
+    */
+
+    'liceus' => [
+
+        'dande' => [
+            'nome' => 'Liceu N.º 4002 BGO Eiffel do Dande',
+            'codigo' => '4002-BGO',
+            'localizacao' => 'Dande, Bengo',
+            'aliases' => ['dande', 'bengo', 'caxito'],
+            'telefones' => ['227 210 456', '227 210 457'],
+        ],
+
+        'malanje' => [
+            'nome' => 'Liceu N.º 309 MJE Eiffel Malanje',
+            'codigo' => '309-MJE',
+            'localizacao' => 'Malanje',
+            'aliases' => ['malanje'],
+            'telefones' => ['227 210 452', '227 210 453'],
+        ],
+
+        'cazengo' => [
+            'nome' => 'Liceu N.º 1029 CNO Eiffel do Cazengo',
+            'codigo' => '1029-CNO',
+            'localizacao' => 'Cazengo, Cuanza Norte',
+            'aliases' => ['cazengo', 'ndalatando', 'cuanza norte'],
+            'telefones' => ['227 210 454', '227 210 455'],
+        ],
+
+        'ondjiva' => [
+            'nome' => 'Liceu N.º 080 CNE Eiffel Ondjiva',
+            'codigo' => '080-CNE',
+            'localizacao' => 'Ondjiva, Cunene',
+            'aliases' => ['ondjiva', 'cunene'],
+            'telefones' => ['227 210 445', '227 210 450'],
+        ],
+
+        'huambo' => [
+            'nome' => 'Liceu N.º 2192 HBO Eiffel do Huambo',
+            'codigo' => '2192-HBO',
+            'localizacao' => 'Huambo',
+            'aliases' => ['huambo'],
+            'telefones' => ['227 210 458', '227 210 459'],
+        ],
+
+        'luena' => [
+            'nome' => 'Liceu N.º 887 MCO Eiffel Luena',
+            'codigo' => '887-MCO',
+            'localizacao' => 'Luena, Moxico',
+            'aliases' => ['luena', 'moxico'],
+            'telefones' => ['227 210 451'],
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Contactos publicados
+    |--------------------------------------------------------------------------
+    */
+
+    'contactos' => [
+
+        'atendimento' => [
+            'email' => 'suporteeiffel@redeeiffel.ao',
+            'telefone' => '+244 227 210 460',
+            'localizacao' => 'Benguela - Baía Farta',
+            'horario' => 'Segunda a sexta-feira, das 7h às 16h',
+            'fonte' => 'fale_conosco',
+        ],
+
+        'rodape' => [
+            'email' => 'redeeiffel@redeeiffel.ao',
+            'telefone' => '+244 227 210 460',
+            'localizacao' => 'Benguela - Baía Farta',
+            'fonte' => 'rodape-eiffel',
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Inscrições
+    |--------------------------------------------------------------------------
+    | Fonte: inscricoes.blade.php
+    */
+
+    'inscricoes' => [
+        'disponiveis' => false,
+        'email' => 'suporteeiffel@redeeiffel.ao',
+        'mensagem' => 'As inscrições encontram-se temporariamente indisponíveis. Aguarde a publicação oficial das datas de inscrição.',
+    ],
+
+];
