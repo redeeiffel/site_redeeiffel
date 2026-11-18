@@ -123,4 +123,9 @@
     </div>
   </section>
 
+@include('partials.projectos_galeria', [
+    'tituloGaleria' => 'Projectos Educativos em Destaque',
+    'subtituloGaleria' => 'Conheça os projectos e iniciativas educativas desenvolvidos pelos liceus da Rede Eiffel.'
+])
+
 @endsection

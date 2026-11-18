@@ -10,7 +10,7 @@ use App\Models\Comentario;
 use App\Models\Galeria;
 use App\Models\Mensagem;
 use App\Models\NewLatter;
-
+use App\Models\Projecto;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -429,18 +429,32 @@ function new_latter(Request $request){
       ]);
     }
 
-    function welcome()
-    {
+    
+public function welcome()
+{
+    // Slides institucionais existentes
+    $slides = Slider::orderBy('created_at', 'desc')->get();
 
-      $slides = Slider::orderBy('created_at', 'desc')->get();
-      $noticias = Publicacao::where('tipo','=',1)->orderBy('id', 'desc')->limit(2)->get();
+    // Projectos publicados e seleccionados para o slider
+    $projectosSlider = \App\Models\Projecto::query()
+        ->where('publicado', true)
+        ->where('adicionar_ao_slider', true)
+        ->whereNotNull('fotografia')
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-       return view('/welcome',[
-         'slides'=>$slides,
-         'noticias'=>$noticias
-      
-      ]);
-    }
+    // Notícias da página inicial
+    $noticias = Publicacao::where('tipo', '=', 1)
+        ->orderBy('id', 'desc')
+        ->limit(2)
+        ->get();
+
+    return view('welcome', [
+        'slides' => $slides,
+        'projectosSlider' => $projectosSlider,
+        'noticias' => $noticias,
+    ]);
+}
 
 
     function add_comment()
@@ -594,17 +608,19 @@ function new_latter(Request $request){
        return view('/mulher_eiffeliana');
     }
 
-    function galerias()
-    {
-      $fotos = Galeria::all();
+   public function galerias()
+{
+    // Buscar todas as fotografias da galeria
+    $fotos = Galeria::orderBy('id', 'desc')->get();
 
-       return view('/galeria',
-       [
-         
-         'fotos'=>$fotos
-      
-      ]);
-    }
+    // Buscar apenas os vídeos publicados
+    $videos = \App\Models\Video::where('publicado', true)
+        ->orderBy('id', 'desc')
+        ->get();
+
+    // Enviar fotografias e vídeos para a página pública
+    return view('galeria', compact('fotos', 'videos'));
+}
 
     function inscricoes()
     {
@@ -660,20 +676,35 @@ function new_latter(Request $request){
        return view('/praticas_no_laboratorio');
     }
 
-    function projecto_desenvolvidos()
-    {
-       return view('/projecto_desenvolvidos');
-    }
+   public function projecto_desenvolvidos()
+{
+    $projectos = Projecto::where('categoria', 'desenvolvidos')
+        ->where('publicado', true)
+        ->latest()
+        ->get();
 
-    function projecto_educacional()
-    {
-       return view('/projecto_educacional');
-    }
+    return view('projecto_desenvolvidos', compact('projectos'));
+}
 
-    function projecto_formacao_docente()
-    {
-       return view('/projecto_formacao_docentes');
-    }
+public function projecto_educacional()
+{
+    $projectos = Projecto::where('categoria', 'educacional')
+        ->where('publicado', true)
+        ->latest()
+        ->get();
+
+    return view('projecto_educacional', compact('projectos'));
+}
+
+public function projecto_formacao_docente()
+{
+    $projectos = Projecto::where('categoria', 'formacao_docente')
+        ->where('publicado', true)
+        ->latest()
+        ->get();
+
+    return view('projecto_formacao_docentes', compact('projectos'));
+}
 
     function sobre()
     {
@@ -722,10 +753,141 @@ function new_latter(Request $request){
 
         return view('admin.ver_galeria', compact('galerias'));
     }
-
+// Abrir o formulário para adicionar fotografias
+public function add_galeria()
+{
+    return view('admin.add_galeria');
+}
     // Apresentar formulario de nova fotografia
-    public function add_galeria()
-    {
-        return view('admin.add_galeria');
+   // Guardar nova fotografia na galeria
+public function add_galery(Request $request)
+{
+    $dados = $request->validate([
+        'tipo' => 'required|in:filter-app,filter-card,filter-web',
+        'titulo' => 'required|string|max:5000',
+        'fotografia' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+    ]);
+
+    $diretorio = public_path('media/galeria');
+
+    if (!is_dir($diretorio)) {
+        if (!mkdir($diretorio, 0755, true) && !is_dir($diretorio)) {
+            return back()
+                ->withInput()
+                ->with('fail', 'Não foi possível preparar a pasta da galeria.');
+        }
     }
+
+    $ficheiro = $request->file('fotografia');
+    $nome = \Illuminate\Support\Str::uuid() . '.' . $ficheiro->extension();
+
+    $ficheiro->move($diretorio, $nome);
+
+    try {
+        Galeria::create([
+            'tipo' => $dados['tipo'],
+            'titulo' => $dados['titulo'],
+            'fotografia' => $nome,
+        ]);
+    } catch (\Throwable $e) {
+        @unlink($diretorio . DIRECTORY_SEPARATOR . $nome);
+        throw $e;
+    }
+
+    return redirect()
+        ->route('admin.ver_galeria')
+        ->with('success', 'Fotografia adicionada à galeria com sucesso!');
+}
+
+// Abrir o formulário de edição
+public function editar_galeria($id)
+{
+    $galeria = Galeria::findOrFail($id);
+
+    return view('admin.editar_galeria', compact('galeria'));
+}
+
+// Actualizar os dados da fotografia
+public function edit_galeria(Request $request, $id)
+{
+    $galeria = Galeria::findOrFail($id);
+
+    $dados = $request->validate([
+        'tipo' => 'required|in:filter-app,filter-card,filter-web',
+        'titulo' => 'required|string|max:5000',
+        'fotografia' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+    ]);
+
+    $fotografiaAntiga = $galeria->fotografia;
+    $novaFotografia = null;
+
+    if ($request->hasFile('fotografia')) {
+        $diretorio = public_path('media/galeria');
+
+        if (!is_dir($diretorio)) {
+            if (!mkdir($diretorio, 0755, true) && !is_dir($diretorio)) {
+                return back()
+                    ->withInput()
+                    ->with('fail', 'Não foi possível preparar a pasta da galeria.');
+            }
+        }
+
+        $ficheiro = $request->file('fotografia');
+        $novaFotografia = \Illuminate\Support\Str::uuid()
+            . '.' . $ficheiro->extension();
+
+        $ficheiro->move($diretorio, $novaFotografia);
+
+        $dados['fotografia'] = $novaFotografia;
+    }
+
+    try {
+        $galeria->update($dados);
+    } catch (\Throwable $e) {
+        if ($novaFotografia) {
+            @unlink(public_path('media/galeria/' . $novaFotografia));
+        }
+
+        throw $e;
+    }
+
+    if ($novaFotografia && $fotografiaAntiga) {
+        $caminhoAntigo = public_path(
+            'media/galeria/' . basename($fotografiaAntiga)
+        );
+
+        if (is_file($caminhoAntigo)) {
+            @unlink($caminhoAntigo);
+        }
+    }
+
+    return redirect()
+        ->route('admin.ver_galeria')
+        ->with('success', 'Fotografia actualizada com sucesso!');
+}
+
+// Eliminar fotografia
+public function delete_galeria($id)
+{
+    $galeria = Galeria::findOrFail($id);
+
+    $fotografia = $galeria->fotografia;
+
+    $galeria->delete();
+
+    if ($fotografia) {
+        $caminho = public_path(
+            'media/galeria/' . basename($fotografia)
+        );
+
+        if (is_file($caminho)) {
+            @unlink($caminho);
+        }
+    }
+
+    return redirect()
+        ->route('admin.ver_galeria')
+        ->with('success', 'Fotografia eliminada com sucesso!');
+}
+
 }

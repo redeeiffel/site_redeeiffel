@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\DocumentoController;
+use App\Http\Controllers\Admin\VideoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,6 +101,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // ----------------------------------------------------------------------
 
     Route::middleware(['guest:admin'])->group(function () {
+        // --------------------------------------------------
+
 
         Route::view('/login', 'admin.login')->name('login');
 
@@ -116,7 +119,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // ----------------------------------------------------------------------
 
     Route::middleware(['auth:admin'])->group(function () {
+    // Gestão de Projectos — Rede Eiffel
+// --------------------------------------------------
 
+        Route::resource(
+            'projectos',
+            \App\Http\Controllers\Admin\ProjectoController::class
+        )->except(['show']);
         // Gestão de Documentos — apenas administradores autenticados
         Route::get('/documentos', [DocumentoController::class, 'index'])
             ->name('documentos.index');
@@ -261,6 +270,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/edit_galeria/{id}', [AdminController::class, 'edit_galeria'])->name('edit_galeria');
 
         Route::delete('/delete_galeria/{id}', [AdminController::class, 'delete_galeria'])->name('delete_galeria');
+        // --------------------------------------------------
+// Gestão de vídeos da Rede Eiffel
+// --------------------------------------------------
+
+Route::get('/videos', [VideoController::class, 'index'])
+    ->name('videos.index');
+
+Route::get('/videos/criar', [VideoController::class, 'create'])
+    ->name('videos.create');
+
+Route::post('/videos', [VideoController::class, 'store'])
+    ->name('videos.store');
+
+Route::get('/videos/{video}/editar', [VideoController::class, 'edit'])
+    ->name('videos.edit');
+
+Route::put('/videos/{video}', [VideoController::class, 'update'])
+    ->name('videos.update');
+
+Route::delete('/videos/{video}', [VideoController::class, 'destroy'])
+    ->name('videos.destroy');
 
 
         // ------------------------------------------------------------------

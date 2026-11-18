@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -341,6 +341,20 @@
         </li>
 
         <li>
+          <a class="color-text-1" href="{{ route('admin.videos.index') }}">
+            <span class="fa fa-video"></span>
+            Gerir Vídeos
+          </a>
+        </li>
+
+        <li>
+          <a class="color-text-1" href="{{ route('admin.projectos.index') }}">
+            <span class="fa fa-diagram-project"></span>
+            Gerir Projectos
+          </a>
+        </li>
+
+        <li>
           <a class="color-text-1" href="{{ route('admin.ver_publicacao') }}">
             <span class="fa fa-newspaper"></span>
             Gerir Blog
@@ -450,6 +464,22 @@
          class="{{ request()->routeIs('admin.ver_galeria') ? 'admin-active' : '' }}">
         <i class="fa fa-image"></i>
         Gerir Galeria
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ route('admin.videos.index') }}"
+         class="{{ request()->routeIs('admin.videos.*') ? 'admin-active' : '' }}">
+        <i class="fa fa-video"></i>
+        Gerir Vídeos
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ route('admin.projectos.index') }}"
+         class="{{ request()->routeIs('admin.projectos.*') ? 'admin-active' : '' }}">
+        <i class="fa fa-diagram-project"></i>
+        Gerir Projectos
       </a>
     </li>
 
